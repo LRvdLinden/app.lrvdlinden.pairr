@@ -32,8 +32,6 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<false/>
 	<key>NFCReaderUsageDescription</key>
 	<string>Pairr reads HomeKit and Matter NFC tags to save their pairing code.</string>
 	<key>NSCameraUsageDescription</key>

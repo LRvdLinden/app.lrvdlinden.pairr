@@ -57,7 +57,6 @@ targets:
             CFBundleTypeRole: Viewer
             LSHandlerRank: Owner
             LSItemContentTypes: [app.lrvdlinden.pairr.backup]
-        LSSupportsOpeningDocumentsInPlace: false
         NFCReaderUsageDescription: Pairr reads HomeKit and Matter NFC tags to save their pairing code.
         NSCameraUsageDescription: Pairr uses the camera to scan pairing codes and QR codes on your devices.
         NSHomeKitUsageDescription: Pairr reads your homes, rooms and accessories so you can attach pairing codes to them. Pairr never changes your home.
