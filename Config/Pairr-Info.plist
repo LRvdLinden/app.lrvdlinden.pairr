@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Pairr backup</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>app.lrvdlinden.pairr.backup</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>nl</string>
+		<string>de</string>
+		<string>fr</string>
+		<string>es</string>
+		<string>it</string>
+		<string>sv</string>
+		<string>nb</string>
+		<string>da</string>
+		<string>pl</string>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
+	<key>NFCReaderUsageDescription</key>
+	<string>Pairr reads HomeKit and Matter NFC tags to save their pairing code.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Pairr uses the camera to scan pairing codes and QR codes on your devices.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Pairr uses Face ID to lock the app and keep your pairing codes private.</string>
+	<key>NSHomeKitUsageDescription</key>
+	<string>Pairr reads your homes, rooms and accessories so you can attach pairing codes to them. Pairr never changes your home.</string>
+	<key>NSUbiquitousContainers</key>
+	<dict>
+		<key>iCloud.app.lrvdlinden.pairr</key>
+		<dict>
+			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
+			<true/>
+			<key>NSUbiquitousContainerName</key>
+			<string>Pairr</string>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>Any</string>
+		</dict>
+	</dict>
+	<key>PairrKeychainGroup</key>
+	<string>$(AppIdentifierPrefix)app.lrvdlinden.pairr.shared</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>LaunchBackground</string>
+	</dict>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Pairr backup</string>
+			<key>UTTypeIdentifier</key>
+			<string>app.lrvdlinden.pairr.backup</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>pairrbackup</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

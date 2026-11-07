@@ -9,15 +9,9 @@ Een kluis voor alle koppelcodes van je slimme huis: HomeKit, Matter, Zigbee, Phi
 
 ## Project openen
 
-Het Xcode-project wordt gemaakt met [XcodeGen](https://github.com/yonaskolb/XcodeGen):
+Open `Pairr.xcodeproj` in Xcode 16 of nieuwer. Kies het schema **Pairr** en een iPhone, iPad of "My Mac" als bestemming; de Watch-app wordt met de iPhone-app meegebouwd.
 
-```sh
-brew install xcodegen
-xcodegen generate
-open Pairr.xcodeproj
-```
-
-Kies het schema **Pairr** en een iPhone, iPad of "My Mac" als bestemming.
+De mappen `Pairr`, `Shared`, `PairrWatch` en `Config` zijn gesynchroniseerde mappen: nieuwe bestanden komen vanzelf in het project. `project.yml` (XcodeGen) is er als reserve.
 
 ## Capabilities (in het developer-account)
 
@@ -46,6 +40,7 @@ Zet het CloudKit-schema vóór de release in het CloudKit Dashboard op **Product
 - `Shared/`: modellen, kluis, code-herkenning, logo en gedeelde views (app én Watch), `Localizable.xcstrings`.
 - `Pairr/`: de app voor iPhone, iPad en Mac.
 - `PairrWatch/`: de Watch-app.
+- `Config/`: Info.plist-bestanden en entitlements.
 
 ## Talen
 
