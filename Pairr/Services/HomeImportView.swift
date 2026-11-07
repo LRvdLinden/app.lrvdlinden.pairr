@@ -205,7 +205,7 @@ struct HomeImportView: View {
             default: break
             }
         }
-        switch type {
+        return switch type {
         case HMAccessoryCategoryTypeLightbulb: .light
         case HMAccessoryCategoryTypeOutlet: .plug
         case HMAccessoryCategoryTypeSwitch: .lightSwitch
