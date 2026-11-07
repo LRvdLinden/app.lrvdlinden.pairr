@@ -55,8 +55,39 @@ struct ContentView: View {
     @State private var selection: UUID?
     @State private var sheet: ActiveSheet?
     @State private var column: NavigationSplitViewColumn = .content
+    @State private var path: [UUID] = []
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var sizeClass
+    private var isCompact: Bool { sizeClass == .compact }
+    #else
+    private let isCompact = false
+    #endif
 
     var body: some View {
+        Group {
+            if isCompact {
+                // iPhone: straight into the list, devices open in a stack.
+                NavigationStack(path: $path) {
+                    DeviceListView(filter: filter ?? .all, selection: $selection, sheet: $sheet,
+                                   compact: true, filterChoice: $filter)
+                        .navigationDestination(for: UUID.self) { id in
+                            if let device = devices.first(where: { $0.id == id }) {
+                                DeviceDetailView(device: device)
+                            }
+                        }
+                }
+            } else {
+                splitView
+            }
+        }
+        .sheet(item: $sheet) { sheet in sheetContent(sheet) }
+        .onChange(of: appState.pendingAction) { _, action in
+            if action == .newDevice { sheet = .newDevice(nil) }
+            appState.pendingAction = nil
+        }
+    }
+
+    private var splitView: some View {
         NavigationSplitView(preferredCompactColumn: $column) {
             SidebarView(devices: devices, filter: $filter, sheet: $sheet)
         } content: {
@@ -71,10 +102,19 @@ struct ContentView: View {
                                        description: Text("Its codes, details and attachments appear here."))
             }
         }
-        .sheet(item: $sheet) { sheet in
+    }
+
+    @ViewBuilder
+    private func sheetContent(_ sheet: ActiveSheet) -> some View {
             switch sheet {
             case .newDevice(let parsed):
-                DeviceEditorView(device: nil, initialCode: parsed) { created in selection = created.id }
+                DeviceEditorView(device: nil, initialCode: parsed) { created in
+                    if isCompact {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { path = [created.id] }
+                    } else {
+                        selection = created.id
+                    }
+                }
             case .homeImport:
                 #if os(iOS)
                 HomeImportView()
@@ -87,11 +127,6 @@ struct ContentView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { self.sheet = .homeImport }
                 })
             }
-        }
-        .onChange(of: appState.pendingAction) { _, action in
-            if action == .newDevice { sheet = .newDevice(nil) }
-            appState.pendingAction = nil
-        }
     }
 }
 

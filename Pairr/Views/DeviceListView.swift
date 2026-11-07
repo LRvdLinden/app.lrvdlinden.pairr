@@ -13,6 +13,9 @@ struct DeviceListView: View {
     let filter: LibraryFilter
     @Binding var selection: UUID?
     @Binding var sheet: ActiveSheet?
+    /// iPhone: a plain navigation stack with a filter menu instead of the sidebar.
+    var compact = false
+    var filterChoice: Binding<LibraryFilter?>? = nil
 
     @Environment(\.modelContext) private var context
     @Query(sort: \Device.name) private var all: [Device]
@@ -44,7 +47,7 @@ struct DeviceListView: View {
     }
 
     var body: some View {
-        List(selection: $selection) {
+        List(selection: compact ? .constant(nil) : $selection) {
             if groupByRoom {
                 ForEach(grouped, id: \.0) { room, devices in
                     Section(room) { ForEach(devices) { row($0) } }
@@ -56,8 +59,14 @@ struct DeviceListView: View {
         .overlay { emptyState }
         .searchable(text: $search, prompt: Text("Search devices"))
         .navigationTitle(filter.title)
+        #if os(iOS)
+        .safeAreaInset(edge: .bottom) { scanBar }
+        #endif
         .toolbar {
             ToolbarItem(placement: .primaryAction) { addMenu }
+            if compact, let filterChoice {
+                ToolbarItem(placement: .primaryAction) { filterMenu(filterChoice) }
+            }
             ToolbarItem {
                 Menu {
                     Picker("Sort by", selection: $sort) {
@@ -84,9 +93,17 @@ struct DeviceListView: View {
         }
     }
 
+    @ViewBuilder
+    private func rowContent(_ device: Device) -> some View {
+        if compact {
+            NavigationLink(value: device.id) { DeviceRow(device: device) }
+        } else {
+            DeviceRow(device: device).tag(device.id)
+        }
+    }
+
     private func row(_ device: Device) -> some View {
-        DeviceRow(device: device)
-            .tag(device.id)
+        rowContent(device)
             .swipeActions(edge: .trailing) {
                 Button(role: .destructive) { pendingDelete = device } label: { Label("Delete", systemImage: "trash") }
             }
@@ -102,6 +119,55 @@ struct DeviceListView: View {
                 }
                 Button(role: .destructive) { pendingDelete = device } label: { Label("Delete", systemImage: "trash") }
             }
+    }
+
+    #if os(iOS)
+    /// A big, always visible button to scan a code with the camera.
+    private var scanBar: some View {
+        Button { capture = .camera } label: {
+            Label("Scan a code", systemImage: "qrcode.viewfinder")
+                .font(.headline)
+                .frame(maxWidth: 420)
+                .padding(.vertical, 6)
+        }
+        .buttonStyle(.borderedProminent)
+        .controlSize(.large)
+        .buttonBorderShape(.capsule)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 8)
+    }
+    #endif
+
+    /// Filters for iPhone, where the sidebar isn't shown.
+    private func filterMenu(_ choice: Binding<LibraryFilter?>) -> some View {
+        let types = CodeType.allCases.filter { t in all.contains { LibraryFilter.type(t).includes($0) } }
+        let homes = Array(Set(all.map(\.home).filter { !$0.isEmpty })).sorted()
+        let rooms = Array(Set(all.map(\.room).filter { !$0.isEmpty })).sorted()
+        return Menu {
+            Picker("Show", selection: choice) {
+                Text(verbatim: LibraryFilter.all.title).tag(Optional(LibraryFilter.all))
+                Text(verbatim: LibraryFilter.favorites.title).tag(Optional(LibraryFilter.favorites))
+                Text(verbatim: LibraryFilter.recent.title).tag(Optional(LibraryFilter.recent))
+                Text(verbatim: LibraryFilter.withoutCode.title).tag(Optional(LibraryFilter.withoutCode))
+            }
+            if !types.isEmpty {
+                Picker("Codes", selection: choice) {
+                    ForEach(types) { t in Label(t.title, systemImage: t.symbol).tag(Optional(LibraryFilter.type(t))) }
+                }
+            }
+            if !homes.isEmpty {
+                Picker("Homes", selection: choice) {
+                    ForEach(homes, id: \.self) { h in Text(verbatim: h).tag(Optional(LibraryFilter.home(h))) }
+                }
+            }
+            if !rooms.isEmpty {
+                Picker("Rooms", selection: choice) {
+                    ForEach(rooms, id: \.self) { r in Text(verbatim: r).tag(Optional(LibraryFilter.room(r))) }
+                }
+            }
+        } label: {
+            Label("Filter", systemImage: filter == .all ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill")
+        }
     }
 
     private var addMenu: some View {
