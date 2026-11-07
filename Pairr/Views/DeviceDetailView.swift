@@ -75,6 +75,7 @@ struct DeviceDetailView: View {
                 Button("Edit") { editing = true }
             }
         }
+        .task(id: device.manufacturer) { await DeviceLookup.fetchLogoIfNeeded(for: device) }
         .sheet(isPresented: $editing) {
             DeviceEditorView(device: device, initialCode: nil, onDeleted: onDeleted)
         }
@@ -100,7 +101,7 @@ struct DeviceDetailView: View {
 
     private var header: some View {
         HStack(spacing: 16) {
-            DeviceIcon(kind: device.kind, color: device.color, size: 64)
+            DeviceAvatar(device: device, size: 64)
             VStack(alignment: .leading, spacing: 4) {
                 Text(verbatim: device.displayName)
                     .font(.title2.bold())

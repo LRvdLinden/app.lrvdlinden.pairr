@@ -33,6 +33,10 @@ struct DeviceEditorView: View {
     @State private var confirmDelete = false
     @State private var loaded = false
     @State private var saved = 0
+    @State private var lookingUp = false
+    @State private var info: DeviceInfo?
+    @State private var logoData: Data?
+    @State private var originalManufacturer: String?
 
     struct EditableField: Identifiable {
         var id = UUID()
@@ -45,7 +49,18 @@ struct DeviceEditorView: View {
             Form {
                 Section {
                     HStack(spacing: 14) {
-                        DeviceIcon(kind: kind, color: Color(hex: colorHex) ?? Theme.accent, size: 54)
+                        if let logoData, let logo = Image(imageData: logoData) {
+                            logo.resizable().scaledToFit()
+                                .padding(8)
+                                .frame(width: 54, height: 54)
+                                .background(Color.white, in: RoundedRectangle(cornerRadius: 15, style: .continuous))
+                                .overlay(alignment: .bottomTrailing) {
+                                    DeviceIcon(kind: kind, color: Color(hex: colorHex) ?? Theme.accent, size: 22)
+                                        .offset(x: 5, y: 5)
+                                }
+                        } else {
+                            DeviceIcon(kind: kind, color: Color(hex: colorHex) ?? Theme.accent, size: 54)
+                        }
                         TextField("Name", text: $name, prompt: Text("For example: Hue bulb hallway"))
                             .font(.title3)
                     }
@@ -56,6 +71,21 @@ struct DeviceEditorView: View {
                                 .font(.body.monospaced())
                             Spacer()
                             Image(systemName: "checkmark.circle.fill").foregroundStyle(Theme.mint)
+                        }
+                    }
+                    if lookingUp {
+                        HStack(spacing: 10) {
+                            ProgressView()
+                            Text("Looking up product details…").foregroundStyle(.secondary)
+                        }
+                    } else if let info, !info.source.isEmpty {
+                        Label {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Filled in automatically")
+                                Text(verbatim: info.source).font(.caption).foregroundStyle(.secondary)
+                            }
+                        } icon: {
+                            Image(systemName: "sparkles").foregroundStyle(Theme.accent)
                         }
                     }
                 }
@@ -163,6 +193,7 @@ struct DeviceEditorView: View {
             }
             .sensoryFeedback(.success, trigger: saved)
             .onAppear(perform: load)
+            .task { await lookUp() }
         }
         .modalTracked()
         #if os(macOS)
@@ -192,6 +223,7 @@ struct DeviceEditorView: View {
         guard !loaded else { return }
         loaded = true
         if let d = device {
+            originalManufacturer = d.manufacturer
             name = d.name; kind = d.kind; colorHex = d.colorHex
             manufacturer = d.manufacturer; model = d.model; serial = d.serialNumber; firmware = d.firmware
             home = d.home; room = d.room; isBridged = d.isBridged
@@ -209,6 +241,28 @@ struct DeviceEditorView: View {
         if device == nil, home.isEmpty {
             let homes = Set(all.map(\.home).filter { !$0.isEmpty })
             if homes.count == 1 { home = homes.first ?? "" }
+        }
+    }
+
+    /// Fills empty fields from the Matter register, the Zigbee address or the Hue code, and loads the brand logo.
+    private func lookUp() async {
+        guard device == nil, let code = initialCode, info == nil else { return }
+        lookingUp = true
+        let found = await DeviceLookup.info(for: code)
+        lookingUp = false
+        guard let found else { return }
+        info = found
+        withAnimation {
+            if name.trimmed.isEmpty || name == "Philips Hue" {
+                name = found.productName.isEmpty ? found.manufacturer : found.productName
+            }
+            if manufacturer.trimmed.isEmpty { manufacturer = found.manufacturer }
+            if model.trimmed.isEmpty { model = found.model }
+            if let k = found.kind, kind == .other || initialCode?.suggestedKind == nil { kind = k }
+        }
+        if let domain = found.brandDomain ?? DeviceLookup.domain(forManufacturer: found.manufacturer),
+           let png = await DeviceLookup.logo(domain: domain) {
+            withAnimation { logoData = png }
         }
     }
 
@@ -253,10 +307,33 @@ struct DeviceEditorView: View {
             KeySync.shared.pushKey()
             #endif
         }
+        if device == nil, let info {
+            for (url, title) in [(info.productURL, String(localized: "Product page")),
+                                 (info.manualURL, String(localized: "Manual")),
+                                 (info.supportURL, String(localized: "Support"))] {
+                guard let url else { continue }
+                let link = Attachment(kind: .link, name: title)
+                link.urlString = url.absoluteString
+                context.insert(link)
+                d.attachments = (d.attachments ?? []) + [link]
+            }
+            if let domain = info.brandDomain { d.logoDomain = domain }
+        }
+        if let logoData { d.logoData = logoData }
         try? context.save()
         saved += 1
         if device == nil { onCreated(d) }
+        if d.logoData == nil || manufacturerChanged(d) {
+            if manufacturerChanged(d) { d.logoData = nil; d.logoDomain = "" }
+            Task { await DeviceLookup.fetchLogoIfNeeded(for: d) }
+        }
         dismiss()
+    }
+
+    /// True when the manufacturer was edited, so the old logo no longer fits.
+    private func manufacturerChanged(_ d: Device) -> Bool {
+        guard let original = originalManufacturer else { return false }
+        return original.lowercased() != d.manufacturer.lowercased() && logoData == nil
     }
 
     private func deleteDevice() {

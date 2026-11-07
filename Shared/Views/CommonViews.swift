@@ -110,3 +110,34 @@ enum Clipboard {
         #endif
     }
 }
+
+/// A device's brand logo with a small icon of its kind, or the plain icon tile.
+struct DeviceAvatar: View {
+    let device: Device
+    var size: CGFloat = 40
+    @AppStorage("ui.showLogos") private var showLogos = true
+
+    var body: some View {
+        if showLogos, let data = device.logoData, let logo = Image(imageData: data) {
+            ZStack(alignment: .bottomTrailing) {
+                RoundedRectangle(cornerRadius: size * 0.28, style: .continuous)
+                    .fill(Color.white)
+                    .frame(width: size, height: size)
+                    .overlay {
+                        logo.resizable().scaledToFit()
+                            .padding(size * 0.14)
+                    }
+                    .overlay(RoundedRectangle(cornerRadius: size * 0.28, style: .continuous)
+                        .strokeBorder(Color.black.opacity(0.08), lineWidth: 0.5))
+                DeviceIcon(kind: device.kind, color: device.color, size: size * 0.42)
+                    .overlay(RoundedRectangle(cornerRadius: size * 0.42 * 0.28, style: .continuous)
+                        .strokeBorder(Color.white, lineWidth: 1.5))
+                    .offset(x: size * 0.1, y: size * 0.1)
+            }
+            .frame(width: size, height: size)
+            .accessibilityHidden(true)
+        } else {
+            DeviceIcon(kind: device.kind, color: device.color, size: size)
+        }
+    }
+}

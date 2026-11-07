@@ -137,6 +137,7 @@ struct HomeImportView: View {
         importing = true
         defer { importing = false }
         var added = 0, updated = 0
+        var touched: [Device] = []
         for home in browser.homes {
             for acc in home.accessories where selected.contains(acc.uniqueIdentifier) {
                 let serial = await Self.serialNumber(of: acc)
@@ -163,9 +164,14 @@ struct HomeImportView: View {
                 d.isBridged = acc.isBridged
                 if existing == nil { d.kind = Self.kind(for: acc) }
                 d.touch()
+                touched.append(d)
             }
         }
         try? context.save()
+        // Brand logos load in the background, also after this sheet closes.
+        Task { @MainActor in
+            for d in touched { await DeviceLookup.fetchLogoIfNeeded(for: d) }
+        }
         result = String(format: String(localized: "%lld added, %lld updated."), added, updated)
     }
 

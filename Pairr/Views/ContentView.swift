@@ -178,12 +178,13 @@ struct SidebarView: View {
     }
 
     private func row(_ f: LibraryFilter, _ symbol: String, count: Int?, tint: Color = Theme.accent) -> some View {
-        Label {
-            Text(verbatim: f.title)
-        } icon: {
-            Image(systemName: symbol).foregroundStyle(tint)
+        NavigationLink(value: f) {
+            Label {
+                Text(verbatim: f.title)
+            } icon: {
+                Image(systemName: symbol).foregroundStyle(tint)
+            }
+            .badge(count ?? 0)
         }
-        .badge(count ?? 0)
-        .tag(Optional(f))
     }
 }

@@ -43,7 +43,7 @@ struct WatchRootView: View {
                         WatchDeviceView(device: d)
                     } label: {
                         HStack(spacing: 10) {
-                            DeviceIcon(kind: d.kind, color: d.color, size: 30)
+                            DeviceAvatar(device: d, size: 30)
                             VStack(alignment: .leading, spacing: 1) {
                                 Text(verbatim: d.displayName).font(.headline).lineLimit(1)
                                 if !d.room.isEmpty {

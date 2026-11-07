@@ -17,6 +17,8 @@ struct SettingsView: View {
     @AppStorage("security.revealCodes") private var revealCodes = false
     @AppStorage("ui.appearance") private var appearance: AppearanceSetting = .system
     @AppStorage("onboarding.done") private var onboardingDone = true
+    @AppStorage(DeviceLookup.enabledKey) private var lookupOnline = true
+    @AppStorage("ui.showLogos") private var showLogos = true
     @State private var cloud = CloudStatus.shared
     @State private var showWhatsNew = false
 
@@ -62,6 +64,19 @@ struct SettingsView: View {
                     Text("Your data")
                 } footer: {
                     Text("Everything is stored in your own iCloud. Deleting the app doesn't delete your data: after reinstalling, it comes back.")
+                }
+
+                Section {
+                    Toggle(isOn: $lookupOnline) {
+                        Label("Look up product details online", systemImage: "magnifyingglass")
+                    }
+                    Toggle(isOn: $showLogos) {
+                        Label("Show brand logos", systemImage: "seal")
+                    }
+                } header: {
+                    Text("Product details")
+                } footer: {
+                    Text("After a scan, Pairr fills in the brand, model and type: from the public Matter register of the CSA, the Zigbee address or the Hue code. Logos come from the manufacturer's own website. Your codes are never sent.")
                 }
 
                 Section("Appearance") {

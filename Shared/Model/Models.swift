@@ -25,6 +25,9 @@ final class Device {
     var stickerLocation: String = ""
     var notes: String = ""
     var isFavorite: Bool = false
+    /// Brand website and its logo (not secret, so not encrypted).
+    var logoDomain: String = ""
+    @Attribute(.externalStorage) var logoData: Data? = nil
     var createdAt: Date = Date()
     var updatedAt: Date = Date()
 

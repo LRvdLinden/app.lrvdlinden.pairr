@@ -18,6 +18,7 @@ struct CodeEditorView: View {
     @State private var errorText: String?
     @State private var saved = 0
     @State private var loaded = false
+    @State private var lastParsed: ParsedCode?
 
     var body: some View {
         NavigationStack {
@@ -149,6 +150,7 @@ struct CodeEditorView: View {
     }
 
     private func apply(_ p: ParsedCode) {
+        lastParsed = p
         type = p.type
         value = CodeParser.format(p.type, p.value)
         if !p.secondary.isEmpty { secondary = p.secondary }
@@ -186,6 +188,20 @@ struct CodeEditorView: View {
         KeySync.shared.pushKey()
         #endif
         saved += 1
+        let device = self.device
+        if let parsed = lastParsed {
+            // Fill empty details of the device from the scanned code.
+            Task { @MainActor in
+                guard let info = await DeviceLookup.info(for: parsed) else { return }
+                if device.manufacturer.isEmpty { device.manufacturer = info.manufacturer }
+                if device.model.isEmpty { device.model = info.model }
+                if device.kind == .other, let k = info.kind { device.kind = k }
+                if device.logoDomain.isEmpty, let domain = info.brandDomain { device.logoDomain = domain }
+                device.touch()
+                try? device.modelContext?.save()
+                await DeviceLookup.fetchLogoIfNeeded(for: device)
+            }
+        }
         dismiss()
     }
 }

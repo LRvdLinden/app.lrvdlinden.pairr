@@ -225,7 +225,7 @@ struct DeviceRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            DeviceIcon(kind: device.kind, color: device.color, size: 40)
+            DeviceAvatar(device: device, size: 40)
             VStack(alignment: .leading, spacing: 2) {
                 Text(verbatim: device.displayName)
                     .font(.headline)
