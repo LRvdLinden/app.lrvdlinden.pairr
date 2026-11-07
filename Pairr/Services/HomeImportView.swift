@@ -169,11 +169,14 @@ struct HomeImportView: View {
         result = String(format: String(localized: "%lld added, %lld updated."), added, updated)
     }
 
+    /// HAP characteristic "Serial Number" (HMCharacteristicTypeSerialNumber is deprecated).
+    private static let serialNumberType = "00000030-0000-1000-8000-0026BB765291"
+
     /// The serial number from the Accessory Information service, read with a short timeout.
     private static func serialNumber(of acc: HMAccessory) async -> String {
         let characteristic = acc.services
             .flatMap(\.characteristics)
-            .first { $0.characteristicType == HMCharacteristicTypeSerialNumber }
+            .first { $0.characteristicType == Self.serialNumberType }
         guard let characteristic else { return "" }
         if let value = characteristic.value as? String, !value.isEmpty { return value }
         guard acc.isReachable else { return "" }
@@ -193,7 +196,16 @@ struct HomeImportView: View {
     }
 
     static func kind(for acc: HMAccessory) -> DeviceKind {
-        switch acc.category.categoryType {
+        let type = acc.category.categoryType
+        if #available(iOS 18.0, *) {
+            switch type {
+            case HMAccessoryCategoryTypeWiFiRouter: return .router
+            case HMAccessoryCategoryTypeTelevision: return .tv
+            case HMAccessoryCategoryTypeSpeaker, HMAccessoryCategoryTypeAirPort: return .speaker
+            default: break
+            }
+        }
+        switch type {
         case HMAccessoryCategoryTypeLightbulb: .light
         case HMAccessoryCategoryTypeOutlet: .plug
         case HMAccessoryCategoryTypeSwitch: .lightSwitch
@@ -209,9 +221,7 @@ struct HomeImportView: View {
         case HMAccessoryCategoryTypeGarageDoorOpener: .garage
         case HMAccessoryCategoryTypeWindowCovering: .blinds
         case HMAccessoryCategoryTypeDoor, HMAccessoryCategoryTypeWindow: .contact
-        case HMAccessoryCategoryTypeRangeExtender, HMAccessoryCategoryTypeWiFiRouter: .router
-        case HMAccessoryCategoryTypeTelevision: .tv
-        case HMAccessoryCategoryTypeSpeaker, HMAccessoryCategoryTypeAirPort: .speaker
+        case HMAccessoryCategoryTypeRangeExtender: .router
         case HMAccessoryCategoryTypeSecuritySystem: .camera
         default: .other
         }
