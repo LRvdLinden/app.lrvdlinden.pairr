@@ -14,7 +14,7 @@ settings:
     DEVELOPMENT_TEAM: EU3UY476T6
     CODE_SIGN_STYLE: Automatic
     MARKETING_VERSION: 1.0.0
-    CURRENT_PROJECT_VERSION: 2
+    CURRENT_PROJECT_VERSION: 3
     SWIFT_VERSION: "5.0"
     LOCALIZATION_PREFERS_STRING_CATALOGS: YES
     SWIFT_EMIT_LOC_STRINGS: YES
@@ -52,11 +52,7 @@ targets:
             UTTypeConformsTo: [public.data]
             UTTypeTagSpecification:
               public.filename-extension: [pairrbackup]
-        CFBundleDocumentTypes:
-          - CFBundleTypeName: Pairr backup
-            CFBundleTypeRole: Viewer
-            LSHandlerRank: Owner
-            LSItemContentTypes: [app.lrvdlinden.pairr.backup]
+        com.apple.developer.nfc.readersession.iso7816.select-identifiers: [D2760000850101]
         NFCReaderUsageDescription: Pairr reads HomeKit and Matter NFC tags to save their pairing code.
         NSCameraUsageDescription: Pairr uses the camera to scan pairing codes and QR codes on your devices.
         NSHomeKitUsageDescription: Pairr reads your homes, rooms and accessories so you can attach pairing codes to them. Pairr never changes your home.
