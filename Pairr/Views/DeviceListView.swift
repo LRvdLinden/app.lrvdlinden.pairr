@@ -47,21 +47,10 @@ struct DeviceListView: View {
     }
 
     var body: some View {
-        List(selection: compact ? .constant(nil) : $selection) {
-            if groupByRoom {
-                ForEach(grouped, id: \.0) { room, devices in
-                    Section(room) { ForEach(devices) { row($0) } }
-                }
-            } else {
-                ForEach(items) { row($0) }
-            }
-        }
+        list
         .overlay { emptyState }
         .searchable(text: $search, prompt: Text("Search devices"))
         .navigationTitle(filter.title)
-        #if os(iOS)
-        .safeAreaInset(edge: .bottom) { scanBar }
-        #endif
         .toolbar {
             ToolbarItem(placement: .primaryAction) { addMenu }
             if compact, let filterChoice {
@@ -93,6 +82,27 @@ struct DeviceListView: View {
         }
     }
 
+    /// iPhone: no selection, so a tap follows the navigation link. iPad/Mac: selection drives the detail column.
+    @ViewBuilder
+    private var list: some View {
+        if compact {
+            List { listRows }
+        } else {
+            List(selection: $selection) { listRows }
+        }
+    }
+
+    @ViewBuilder
+    private var listRows: some View {
+        if groupByRoom {
+            ForEach(grouped, id: \.0) { room, devices in
+                Section(room) { ForEach(devices) { row($0) } }
+            }
+        } else {
+            ForEach(items) { row($0) }
+        }
+    }
+
     @ViewBuilder
     private func rowContent(_ device: Device) -> some View {
         if compact {
@@ -121,22 +131,6 @@ struct DeviceListView: View {
             }
     }
 
-    #if os(iOS)
-    /// A big, always visible button to scan a code with the camera.
-    private var scanBar: some View {
-        Button { capture = .camera } label: {
-            Label("Scan a code", systemImage: "qrcode.viewfinder")
-                .font(.headline)
-                .frame(maxWidth: 420)
-                .padding(.vertical, 6)
-        }
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
-        .buttonBorderShape(.capsule)
-        .padding(.horizontal, 20)
-        .padding(.bottom, 8)
-    }
-    #endif
 
     /// Filters for iPhone, where the sidebar isn't shown.
     private func filterMenu(_ choice: Binding<LibraryFilter?>) -> some View {
