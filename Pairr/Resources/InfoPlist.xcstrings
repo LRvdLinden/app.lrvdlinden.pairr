@@ -1,0 +1,331 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "CFBundleDisplayName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr"
+          }
+        }
+      }
+    },
+    "NSCameraUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr uses the camera to scan pairing codes and QR codes on your devices."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr gebruikt de camera om koppelcodes en QR-codes op je apparaten te scannen."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr verwendet die Kamera, um Kopplungscodes und QR-Codes auf deinen Geräten zu scannen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr utilise l’appareil photo pour scanner les codes de jumelage et QR codes de vos appareils."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr usa la cámara para escanear códigos de vinculación y códigos QR de tus dispositivos."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr usa la fotocamera per scansionare codici di abbinamento e codici QR sui tuoi dispositivi."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr använder kameran för att skanna parkopplingskoder och QR-koder på dina enheter."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr bruker kameraet til å skanne sammenkoblingskoder og QR-koder på enhetene dine."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr bruger kameraet til at scanne parringskoder og QR-koder på dine enheder."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr używa aparatu do skanowania kodów parowania i kodów QR na urządzeniach."
+          }
+        }
+      }
+    },
+    "NSHomeKitUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr reads your homes, rooms and accessories so you can attach pairing codes to them. Pairr never changes your home."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr leest je woningen, kamers en accessoires zodat je er koppelcodes aan kunt koppelen. Pairr verandert nooit iets aan je woning."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr liest dein Zuhause, deine Räume und Geräte, damit du ihnen Kopplungscodes zuordnen kannst. Pairr ändert nie etwas an deinem Zuhause."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr lit vos domiciles, pièces et accessoires pour que vous puissiez y associer des codes. Pairr ne modifie jamais votre domicile."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr lee tus casas, habitaciones y accesorios para que puedas asignarles códigos. Pairr nunca cambia tu casa."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr legge case, stanze e accessori per permetterti di associare i codici. Pairr non modifica mai la tua casa."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr läser dina hem, rum och tillbehör så att du kan koppla koder till dem. Pairr ändrar aldrig ditt hem."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr leser hjemmene, rommene og tilbehøret ditt slik at du kan knytte koder til dem. Pairr endrer aldri hjemmet ditt."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr læser dine hjem, rum og tilbehør, så du kan knytte koder til dem. Pairr ændrer aldrig dit hjem."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr odczytuje Twoje domy, pokoje i akcesoria, aby przypisać do nich kody. Pairr nigdy nie zmienia Twojego domu."
+          }
+        }
+      }
+    },
+    "NFCReaderUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr reads HomeKit and Matter NFC tags to save their pairing code."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr leest NFC-tags van HomeKit en Matter om de koppelcode te bewaren."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr liest HomeKit- und Matter-NFC-Tags, um ihren Kopplungscode zu speichern."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr lit les puces NFC HomeKit et Matter pour enregistrer leur code."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr lee etiquetas NFC de HomeKit y Matter para guardar su código."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr legge i tag NFC HomeKit e Matter per salvarne il codice."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr läser NFC-taggar för HomeKit och Matter för att spara deras kod."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr leser NFC-brikker for HomeKit og Matter for å lagre koden."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr læser HomeKit- og Matter-NFC-tags for at gemme deres kode."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr odczytuje tagi NFC HomeKit i Matter, aby zapisać ich kod."
+          }
+        }
+      }
+    },
+    "NSFaceIDUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr uses Face ID to lock the app and keep your pairing codes private."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr gebruikt Face ID om de app te vergrendelen en je koppelcodes privé te houden."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr verwendet Face ID, um die App zu sperren und deine Kopplungscodes privat zu halten."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr utilise Face ID pour verrouiller l’app et protéger vos codes."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr usa Face ID para bloquear la app y mantener tus códigos en privado."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr usa Face ID per bloccare l’app e proteggere i tuoi codici."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr använder Face ID för att låsa appen och hålla dina koder privata."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr bruker Face ID til å låse appen og holde kodene dine private."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr bruger Face ID til at låse appen og holde dine koder private."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pairr używa Face ID, aby blokować aplikację i chronić Twoje kody."
+          }
+        }
+      }
+    }
+  }
+}
