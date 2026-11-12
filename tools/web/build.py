@@ -25,6 +25,7 @@ OUT = ROOT / "web"
 DOMAIN = "https://pairr.lrvdlinden.app"
 APP_STORE_URL = None  # bv. "https://apps.apple.com/app/pairr/id0000000000" zodra de app live is
 APP_STORE_ID = None
+TESTFLIGHT_URL = "https://testflight.apple.com/join/sSqpDw6n"  # bèta; alleen getoond zolang APP_STORE_URL leeg is
 GITHUB = "https://github.com/LRvdLinden/app.lrvdlinden.pairr"
 ISSUES = GITHUB + "/issues/new"
 UPDATED = date(2026, 11, 12)
@@ -223,8 +224,12 @@ def store_badge(p: Page) -> str:
     if APP_STORE_URL:
         return (f'<a class="store" href="{APP_STORE_URL}" rel="noopener">{APPLE}<span><small>'
                 f'{p.t("Download in de", "Download on the")}</small><b>App Store</b></span></a>')
-    return (f'<span class="store soon" role="note">{APPLE}<span><small>{p.t("Binnenkort in de", "Coming soon to the")}</small>'
+    soon = (f'<span class="store soon" role="note">{APPLE}<span><small>{p.t("Binnenkort in de", "Coming soon to the")}</small>'
             f'<b>App Store</b></span></span>')
+    if TESTFLIGHT_URL:
+        soon += (f'<a class="btn btn-primary beta" href="{TESTFLIGHT_URL}" rel="noopener">'
+                 f'{p.t("Doe mee met de bèta", "Join the beta")}<small>TestFlight</small></a>')
+    return soon
 
 
 def footer(p: Page) -> str:
@@ -298,6 +303,9 @@ def home(p: Page) -> str:
         (T("Wat kost Pairr?", "How much does Pairr cost?"),
          T("Eenmalig € 0,99. Daarna geen abonnement, geen in-app-aankopen, geen reclame en geen account. Alle functies zitten erin, en je betaalt één keer voor iPhone, iPad, Mac en Apple Watch samen.",
            "A one-time € 0.99 (or the equivalent price in your country's App Store). After that: no subscription, no in-app purchases, no ads and no account. Every feature is included, and one purchase covers iPhone, iPad, Mac and Apple Watch.")),
+        (T("Kan ik Pairr nu al proberen?", "Can I try Pairr already?"),
+         T("Ja, via de openbare bèta in TestFlight: installeer de app TestFlight van Apple en open de link op deze pagina. Bèta-versies zijn gratis; feedback stuur je via TestFlight of de supportpagina.",
+           "Yes, through the public beta on TestFlight: install Apple's TestFlight app and open the link on this page. Beta versions are free; send feedback through TestFlight or the support page.")),
         (T("Wat gebeurt er als ik de app verwijder?", "What happens if I delete the app?"),
          T("Niets gaat verloren. Je apparaten en codes staan in je eigen iCloud en de sleutel van je kluis in de iCloud-sleutelhanger. Installeer je Pairr opnieuw, dan komt alles vanzelf terug. Daarnaast maakt Pairr elke week een versleutelde back-up in iCloud Drive.",
            "Nothing is lost. Your devices and codes live in your own iCloud and the key to your vault in iCloud Keychain. Reinstall Pairr and everything comes back by itself. Pairr also makes an encrypted backup in iCloud Drive every week.")),
@@ -433,7 +441,7 @@ def home(p: Page) -> str:
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="eyebrow"><span class="dot"></span>{T("€ 0,99 eenmalig · geen abonnement · geen reclame", "One-time purchase · no subscription · no ads")}</span>
+      <span class="eyebrow"><span class="dot"></span>{T("€ 0,99 eenmalig · geen abonnement", "One-time purchase · no subscription")}</span>
       <h1>{T('Nooit meer een <span class="grad">koppelcode</span> kwijt.', 'Never lose a <span class="grad">setup code</span> again.')}</h1>
       <p class="lead">{T("Pairr bewaart de codes van al je slimme apparaten veilig op één plek. Scan de sticker, Pairr herkent de code, vult merk en model in en toont hem later weer als QR. Versleuteld in je eigen iCloud.",
                          "Pairr keeps the codes of all your smart devices safe in one place. Scan the sticker, Pairr recognises the code, fills in brand and model and shows it again as a QR later. Encrypted in your own iCloud.")}</p>
