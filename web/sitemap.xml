@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://pairr.lrvdlinden.app/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pairr.lrvdlinden.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pairr.lrvdlinden.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pairr.lrvdlinden.app/en/"/>
+  </url>
+  <url>
+    <loc>https://pairr.lrvdlinden.app/en/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pairr.lrvdlinden.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pairr.lrvdlinden.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pairr.lrvdlinden.app/en/"/>
+  </url>
+  <url>
+    <loc>https://pairr.lrvdlinden.app/support/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pairr.lrvdlinden.app/support/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pairr.lrvdlinden.app/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pairr.lrvdlinden.app/en/support/"/>
+  </url>
+  <url>
+    <loc>https://pairr.lrvdlinden.app/en/support/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pairr.lrvdlinden.app/support/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pairr.lrvdlinden.app/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pairr.lrvdlinden.app/en/support/"/>
+  </url>
+  <url>
+    <loc>https://pairr.lrvdlinden.app/privacy/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pairr.lrvdlinden.app/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pairr.lrvdlinden.app/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pairr.lrvdlinden.app/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://pairr.lrvdlinden.app/en/privacy/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pairr.lrvdlinden.app/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pairr.lrvdlinden.app/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pairr.lrvdlinden.app/en/privacy/"/>
+  </url>
+</urlset>

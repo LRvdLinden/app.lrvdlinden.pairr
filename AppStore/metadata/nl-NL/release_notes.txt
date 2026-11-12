@@ -1,0 +1,1 @@
+Eerste versie van Pairr: bewaar al je HomeKit-, Matter-, Zigbee-, Hue- en Z-Wave-codes veilig op één plek.

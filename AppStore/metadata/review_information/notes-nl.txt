@@ -1,0 +1,22 @@
+(Nederlandse kopie voor Léon, niet uploaden)
+
+WAT DE APP DOET
+Pairr is een gratis kluis voor de koppelcodes van slimme apparaten: HomeKit, Matter, Zigbee-installatiecodes, serienummers van Philips Hue, Z-Wave DSK/SmartStart, wifi-gegevens en pincodes. Je scant de sticker, Pairr herkent de soort code, vult merk en model in en toont de code later weer als scanbare QR. Universele app voor iPhone, iPad en Mac, met een Apple Watch-app.
+
+ZO TEST JE
+1. Start de app en blader door de korte welkomstschermen.
+2. Tik op de lege lijst op + en kies "Scan met de camera". Richt op een Matter- of HomeKit-QR. Geen sticker bij de hand? + > "Nieuw apparaat", vul een naam in, voeg een Matter-code toe en typ 3497-011-2332 (de voorbeeldcode uit de Matter-specificatie). Pairr controleert hem en toont hem als QR.
+3. Open het apparaat en tik op het QR-icoon naast de code: de code staat schermvullend als QR, op volle helderheid.
+4. Overige opties onder +: uit een foto, uit een afbeeldingsbestand, NFC-tag (alleen iPhone), importeren uit de Woning-app (iPhone/iPad).
+5. Instellingen (tandwiel): Pairr vergrendelen, iCloud-status, back-up/export/import, productgegevens opzoeken en merklogo's.
+6. Apple Watch: toont de apparaten van de iPhone en een code als QR. Open de iPhone-app één keer met de Watch in de buurt zodat de sleutel wordt doorgegeven.
+
+GEGEVENSBRONNEN
+Bij een Matter-code zoekt Pairr fabrikant en product op in de openbare Matter-database van de CSA (alleen fabrikant- en product-ID). Logo's komen van de website van het merk. Beide uit te zetten. Koppelcodes worden nooit verstuurd. Geen band met Apple, de CSA, Signify of fabrikanten.
+
+TOESTEMMINGEN
+Camera (scannen), NFC (iPhone), HomeKit (alleen-lezen import), Face ID (slot). Foto's via de systeemkiezer. De app werkt zonder; die optie is dan niet beschikbaar.
+
+ACCOUNT: geen. AANKOPEN/RECLAME: geen, geen analytics of tracking.
+
+OVERIG: SwiftData + CloudKit in de privé-iCloud-database, versleuteld met AES-GCM met een sleutel in de iCloud-sleutelhanger; wekelijkse back-up in iCloud Drive; klembord lokaal en 60 seconden; review-vraag hoogstens wekelijks; kaart "Meer apps" naar lrvdlinden.app.

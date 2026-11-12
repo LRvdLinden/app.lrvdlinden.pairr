@@ -3,3 +3,5 @@ DerivedData/
 .build/
 *.xcworkspace/xcuserdata/
 .DS_Store
+web/_appstore/
+web/_social/

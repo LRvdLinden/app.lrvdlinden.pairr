@@ -1,0 +1,66 @@
+Pairr
+Privacyverklaring
+
+Laatst bijgewerkt: 12 november 2026
+
+Kort gezegd: Pairr verzamelt niets. Er is geen account, geen server van Pairr, geen analytics en geen reclame. Je gegevens staan versleuteld op je eigen apparaten en in je eigen iCloud.
+
+Wie is verantwoordelijk
+
+Pairr is gemaakt door Léon van der Linden (lrvdlinden.app), Nederland. Vragen over privacy kun je stellen via de supportpagina.
+
+Welke gegevens Pairr gebruikt
+
+Alleen wat jij zelf invoert: apparaten, codes, kamers, notities, bijlagen en je instellingen. Die gegevens worden niet naar de ontwikkelaar gestuurd.
+
+Opslag en iCloud
+
+• Codes, QR-codes en bijlagen worden versleuteld met AES-GCM (256 bits) voordat ze worden opgeslagen.
+
+• De sleutel staat in de iCloud-sleutelhanger van je Apple-account. De Apple Watch krijgt hem rechtstreeks van je iPhone.
+
+• Als iCloud aan staat, synchroniseert Pairr via de privédatabase van iCloud (CloudKit) van jouw Apple-account. De ontwikkelaar heeft daar geen toegang toe.
+
+• Automatische back-ups komen in je eigen iCloud Drive (map Pairr), versleuteld met dezelfde sleutel.
+
+• Een gekopieerde code blijft alleen op het apparaat waar je hem kopieert en verdwijnt na 60 seconden van het klembord.
+
+Opzoeken van apparaatgegevens
+
+Om merk, model en logo in te vullen maakt Pairr soms verbinding met internet:
+
+• de openbare Matter-database van de Connectivity Standards Alliance (on.dcl.csa-iot.org), met alleen het fabrikant- en product-ID uit een Matter-code;
+
+• de website van het merk, om het pictogram (logo) op te halen.
+
+Je koppelcodes zelf worden nooit verstuurd. Zoals bij elke internetverbinding kunnen die partijen je IP-adres zien; Pairr stuurt geen andere gegevens mee.
+
+Toestemmingen
+
+• Camera: om codes te scannen. Beelden worden niet bewaard, tenzij je zelf een foto als bijlage toevoegt.
+
+• Foto's: alleen de foto die je kiest, om er een code uit te lezen of hem als bijlage te bewaren.
+
+• NFC: om een code van een NFC-tag te lezen (iPhone).
+
+• Woning (HomeKit): alleen-lezen, om je accessoires met kamer, merk en model te importeren. Pairr verandert niets in je woning.
+
+• Face ID / Touch ID: wordt door iOS en macOS afgehandeld; Pairr krijgt alleen te horen of het gelukt is.
+
+Wat Pairr niet doet
+
+Geen account, geen tracking, geen analytics, geen crashrapportage van derden, geen reclame en geen verkoop of delen van gegevens. Een beoordeling vragen gaat via het standaardvenster van Apple.
+
+Apple deelt met ontwikkelaars alleen geanonimiseerde, opgetelde cijfers over downloads uit de App Store. Daaruit is niet te herleiden wie je bent.
+
+Je gegevens verwijderen
+
+In Pairr kun je bij Instellingen → Gegevens alles wissen, ook uit iCloud. Je kunt de gegevens van Pairr ook verwijderen via Instellingen → [je naam] → iCloud → Opslag beheren op je iPhone.
+
+Deze website
+
+pairr.lrvdlinden.app gebruikt geen cookies voor tracking en geen analytics. Alleen als je zelf een taal kiest, wordt die keuze in je browser onthouden (cookie pairr_lang). Lettertypen worden vanaf deze site geladen, niet van Google.
+
+Wijzigingen
+
+Verandert er iets aan deze verklaring, dan staat de nieuwe versie hier met een nieuwe datum.

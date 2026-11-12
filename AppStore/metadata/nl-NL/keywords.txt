@@ -1,0 +1,1 @@
+kluis,hue,z-wave,sticker,qr,setup,code,installatiecode,domotica,smart home,woning,thread,wifi,pin

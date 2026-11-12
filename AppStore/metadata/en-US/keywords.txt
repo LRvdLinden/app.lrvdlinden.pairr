@@ -1,0 +1,1 @@
+setup,pairing,hue,z-wave,sticker,qr,install,thread,domotics,wifi,pin,label,backup,accessory

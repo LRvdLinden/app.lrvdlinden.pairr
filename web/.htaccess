@@ -1,0 +1,65 @@
+# BEGIN pairr
+RewriteEngine On
+
+# Altijd HTTPS en zonder www
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://pairr.lrvdlinden.app%{REQUEST_URI} [L,R=301]
+
+# Geen .html in adressen: /support.html en /support/index.html gaan naar /support/
+RewriteCond %{THE_REQUEST} \s/+(.+?)(?:/index)?\.html[\s?] [NC]
+RewriteRule ^ /%1/ [L,R=301]
+RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+RewriteRule ^ / [L,R=301]
+
+# Taal: wie de taal zelf kiest, krijgt cookie pairr_lang (via de taalknop)
+# Bezoekers buiten Nederland gaan op / naar de Engelse versie, als de server het land weet
+# (Cloudflare: CF-IPCountry, of mod_geoip/mod_maxminddb: GEOIP_COUNTRY_CODE). Zonder land beslist site.js.
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{HTTP_COOKIE} pairr_lang=en
+RewriteRule ^ /en/ [L,R=302]
+
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{HTTP_COOKIE} !pairr_lang=
+RewriteCond %{HTTP_USER_AGENT} !(bot|crawl|spider|slurp|facebookexternalhit|preview) [NC]
+RewriteCond %{HTTP:CF-IPCountry} ^[A-Z]{2}$
+RewriteCond %{HTTP:CF-IPCountry} !^(NL|BQ|XX|T1)$
+RewriteRule ^ /en/ [L,R=302]
+
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{HTTP_COOKIE} !pairr_lang=
+RewriteCond %{HTTP_USER_AGENT} !(bot|crawl|spider|slurp|facebookexternalhit|preview) [NC]
+RewriteCond %{ENV:GEOIP_COUNTRY_CODE} ^[A-Z]{2}$
+RewriteCond %{ENV:GEOIP_COUNTRY_CODE} !^(NL|BQ)$
+RewriteRule ^ /en/ [L,R=302]
+
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header append Vary "Cookie"
+  <FilesMatch "\.(png|jpg|svg|ico|woff2)$">
+    Header set Cache-Control "public, max-age=2592000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=600"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/manifest+json
+</IfModule>
+# END pairr

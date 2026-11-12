@@ -4,7 +4,7 @@ Een kluis voor alle koppelcodes van je slimme huis: HomeKit, Matter, Zigbee, Phi
 
 - **Platforms:** iPhone, iPad en Mac (één app, universal purchase) en Apple Watch.
 - **Bundle ID:** `app.lrvdlinden.pairr` (Watch: `app.lrvdlinden.pairr.watchkitapp`).
-- **Versie:** 1.0.0 (build 6). Minimaal iOS/iPadOS 17, macOS 14, watchOS 10.
+- **Versie:** 1.0.0 (build 7). Minimaal iOS/iPadOS 17, macOS 14, watchOS 10.
 - **Team:** EU3UY476T6, automatisch ondertekenen.
 
 ## Project openen

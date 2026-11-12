@@ -1,0 +1,33 @@
+WHAT THE APP DOES
+Pairr is a free vault for the setup and pairing codes of smart home devices: HomeKit, Matter, Zigbee install codes, Philips Hue serial numbers, Z-Wave DSK/SmartStart, Wi-Fi details and PIN codes. Users scan the code sticker, Pairr recognises the code type, fills in brand and model, and can show the code again as a scannable QR code later. Universal app for iPhone, iPad and Mac, with an Apple Watch app.
+
+HOW TO TEST
+1. Launch the app and swipe through the short welcome screens (2-3 pages).
+2. On the empty device list, tap + (top right) and choose "Scan with the camera". Point the camera at any Matter or HomeKit QR code. No sticker at hand? Tap + > "New device", enter a name, add a code of type Matter and type the manual pairing code 3497-011-2332 (the example code from the Matter specification). Pairr validates it and shows it as a QR code.
+3. Open the device, tap the QR icon next to the code: the code is shown full screen as a QR code at full brightness.
+4. The other capture options under +: "Read from a photo", "Read from an image file", "Read an NFC tag" (iPhone only) and "Import from the Home app" (iPhone/iPad, only when the user has HomeKit accessories).
+5. Settings (gear icon): "Lock Pairr" (Face ID/Touch ID/passcode), iCloud sync status, "Backup, export and import" (PDF, CSV, Markdown and a password-protected backup), product lookup and logo toggles.
+6. Apple Watch: open Pairr on the Watch; it lists the devices from the iPhone and shows a code as a QR code. Open the iPhone app once with the Watch nearby so the encryption key is passed to the Watch.
+
+DATA SOURCES
+When a Matter code is scanned, Pairr looks up the vendor and product name in the public Matter Distributed Compliance Ledger of the Connectivity Standards Alliance (https://on.dcl.csa-iot.org), sending only the vendor and product ID. Brand logos are fetched as the public website icon (apple-touch-icon/favicon) of the manufacturer's domain. Both can be turned off in Settings. Setup codes are never sent anywhere. The app is not affiliated with Apple, the CSA, Signify (Philips Hue) or any device manufacturer.
+
+PERMISSIONS
+- Camera: only when the user chooses to scan a code.
+- NFC (iPhone): only when the user chooses "Read an NFC tag".
+- HomeKit: only when the user chooses "Import from the Home app"; read-only, Pairr never changes the home.
+- Face ID: only when the user turns on the app lock.
+Photos are picked with the system photo picker (no library access). The app works fully when any permission is declined; that capture option is then unavailable.
+
+ACCOUNT
+No login or account required.
+
+IN-APP PURCHASES / ADS
+The app contains no in-app purchases, subscriptions or ads, and no analytics or tracking.
+
+OTHER
+- Data is stored with SwiftData + CloudKit in the user's private iCloud database. Codes, QR images and attachments are encrypted with AES-GCM (CryptoKit) using a key stored in iCloud Keychain, so data survives deleting and reinstalling the app. Encryption is only used to protect the user's own data (exempt; ITSAppUsesNonExemptEncryption = NO).
+- A weekly encrypted backup is written to the user's iCloud Drive (Pairr folder).
+- Copied codes are placed on the clipboard as local-only and expire after 60 seconds.
+- A rating prompt (requestReview) appears at most once a week after a few hours of use.
+- Settings contains a "More apps by the developer" card linking to the developer's website lrvdlinden.app.

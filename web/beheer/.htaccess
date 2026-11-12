@@ -1,0 +1,6 @@
+# Beheer niet indexeren en niet cachen
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow"
+  Header always set Cache-Control "no-store"
+  Header always set X-Frame-Options "DENY"
+</IfModule>

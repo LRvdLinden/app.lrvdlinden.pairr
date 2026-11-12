@@ -1,0 +1,35 @@
+Nooit meer een koppelcode kwijt. Pairr bewaart de codes van al je slimme apparaten veilig op één plek: van HomeKit en Matter tot Zigbee, Philips Hue, Z-Wave, wifi en pincodes. Scan de sticker, Pairr herkent de code, vult merk en model in en toont hem later weer als QR, op je iPhone, iPad, Mac of Apple Watch.
+
+De code zit altijd net op de plek waar je niet bij kunt: onder een plafondlamp, achter een stopcontact, op een doos die al bij het oud papier ligt. En juist na een reset, een nieuwe hub of een verhuizing heb je hem weer nodig.
+
+SCANNEN EN AUTOMATISCH INVULLEN
+• Scan QR-codes en gedrukte cijfers met de camera, lees een code uit een foto of afbeelding, of van een NFC-tag
+• Herkent HomeKit (8 cijfers en X-HM://), Matter (QR en handmatige code), Zigbee-installatiecodes met IEEE-adres, het serienummer op Philips Hue-lampen, Z-Wave DSK en SmartStart, wifi en pincodes
+• Controleert codes op typfouten (Matter-controlegetal, Zigbee-CRC)
+• Vult fabrikant, model, icoon en logo in: bij Matter uit de openbare Matter-database
+• Importeer je accessoires met kamer, merk en model uit de Woning-app
+
+PER APPARAAT GEORDEND
+• Apparaten met soort, kamer, merk, model, serienummer, firmware en waar de originele sticker zit
+• Meerdere codes per apparaat, eigen velden, notities en bijlagen (foto van de sticker, handleiding, bon)
+• Zoeken en filteren op kamer, soort code, favorieten of apparaten zonder code
+
+LATER WEER SCANNEN
+• Pairr tekent de code opnieuw als scanbare QR, op volle helderheid
+• Op je Apple Watch: toon de QR en scan hem met je andere telefoon
+• Op de Mac met sneltoetsen en een menubalk
+
+VEILIG EN ALTIJD BEWAARD
+• Codes, QR-codes en bijlagen versleuteld met AES-GCM, met een eigen sleutel in de iCloud-sleutelhanger
+• Synchroniseert via je eigen iCloud tussen iPhone, iPad, Mac en Apple Watch
+• App per ongeluk verwijderd? Opnieuw installeren en alles is terug
+• Wekelijkse versleutelde back-up in iCloud Drive, en een back-up met wachtwoord die ook zonder iCloud werkt
+• Exporteer naar een printklare PDF met QR-codes, CSV of Markdown
+• Vergrendel de app met Face ID, Touch ID of je toegangscode
+• Een gekopieerde code verdwijnt na 60 seconden van het klembord
+
+De app is beschikbaar in het Nederlands, Engels, Duits, Frans, Spaans, Italiaans, Zweeds, Noors, Deens en Pools.
+
+Volledig gratis: geen abonnement, geen in-app-aankopen, geen reclame, geen account en geen tracking.
+
+Pairr is gemaakt door Léon van der Linden. Meer apps: lrvdlinden.app

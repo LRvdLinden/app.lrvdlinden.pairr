@@ -1,0 +1,66 @@
+Pairr
+Privacy policy
+
+Last updated: 12 November 2026
+
+In short: Pairr collects nothing. There is no account, no Pairr server, no analytics and no ads. Your data is stored encrypted on your own devices and in your own iCloud.
+
+Who is responsible
+
+Pairr is made by Léon van der Linden (lrvdlinden.app), the Netherlands. Questions about privacy can be asked via the support page.
+
+What data Pairr uses
+
+Only what you enter yourself: devices, codes, rooms, notes, attachments and your settings. That data is never sent to the developer.
+
+Storage and iCloud
+
+• Codes, QR codes and attachments are encrypted with AES-GCM (256-bit) before they are stored.
+
+• The key is stored in the iCloud Keychain of your Apple Account. The Apple Watch receives it directly from your iPhone.
+
+• With iCloud turned on, Pairr syncs through the private iCloud database (CloudKit) of your Apple Account. The developer has no access to it.
+
+• Automatic backups go to your own iCloud Drive (Pairr folder), encrypted with the same key.
+
+• A copied code stays only on the device where you copied it and is removed from the clipboard after 60 seconds.
+
+Looking up device details
+
+To fill in brand, model and logo, Pairr sometimes connects to the internet:
+
+• the public Matter database of the Connectivity Standards Alliance (on.dcl.csa-iot.org), with only the vendor and product ID from a Matter code;
+
+• the brand's website, to fetch its icon (logo).
+
+Your setup codes themselves are never sent. As with any internet connection those parties can see your IP address; Pairr sends nothing else.
+
+Permissions
+
+• Camera: to scan codes. Images are not stored unless you add a photo as an attachment yourself.
+
+• Photos: only the photo you pick, to read a code from it or keep it as an attachment.
+
+• NFC: to read a code from an NFC tag (iPhone).
+
+• Home (HomeKit): read-only, to import your accessories with room, brand and model. Pairr changes nothing in your home.
+
+• Face ID / Touch ID: is handled by iOS and macOS; Pairr only learns whether it succeeded.
+
+What Pairr doesn't do
+
+No account, no tracking, no analytics, no third-party crash reporting, no ads and no selling or sharing of data. Asking for a rating uses Apple's standard prompt.
+
+Apple only shares anonymised, aggregated App Store download figures with developers. These can't be traced back to you.
+
+Deleting your data
+
+In Pairr you can erase everything under Settings → Data, including from iCloud. You can also remove Pairr's data via Settings → [your name] → iCloud → Manage Storage on your iPhone.
+
+This website
+
+pairr.lrvdlinden.app uses no tracking cookies and no analytics. Only when you pick a language yourself is that choice remembered in your browser (cookie pairr_lang). Fonts are served from this site, not from Google.
+
+Changes
+
+If this policy changes, the new version will appear here with a new date.

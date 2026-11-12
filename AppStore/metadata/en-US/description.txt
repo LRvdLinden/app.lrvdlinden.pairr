@@ -1,0 +1,35 @@
+Never lose a setup code again. Pairr keeps the codes of all your smart devices safe in one place: from HomeKit and Matter to Zigbee, Philips Hue, Z-Wave, Wi-Fi and PINs. Scan the sticker, Pairr recognises the code, fills in brand and model and shows it again as a QR later, on your iPhone, iPad, Mac or Apple Watch.
+
+The code is always right where you can't reach it: under a ceiling lamp, behind a wall plate, on a box that's already in the recycling. And it's exactly after a reset, a new hub or a move that you need it again.
+
+SCAN AND AUTO-FILL
+• Scan QR codes and printed digits with the camera, read a code from a photo or image, or from an NFC tag
+• Recognises HomeKit (8 digits and X-HM://), Matter (QR and manual code), Zigbee install codes with IEEE address, the serial number on Philips Hue bulbs, Z-Wave DSK and SmartStart, Wi-Fi and PIN codes
+• Checks codes for typos (Matter check digit, Zigbee CRC)
+• Fills in manufacturer, model, icon and logo: for Matter from the public Matter database
+• Import your accessories with room, brand and model from the Home app
+
+ORGANISED PER DEVICE
+• Devices with type, room, brand, model, serial number, firmware and where the original sticker is
+• Several codes per device, custom fields, notes and attachments (sticker photo, manual, receipt)
+• Search and filter by room, code type, favourites or devices without a code
+
+SCAN IT AGAIN LATER
+• Pairr redraws the code as a scannable QR, at full brightness
+• On your Apple Watch: show the QR and scan it with your other phone
+• On the Mac with keyboard shortcuts and a menu bar
+
+SECURE AND ALWAYS KEPT
+• Codes, QR codes and attachments encrypted with AES-GCM, with your own key in iCloud Keychain
+• Syncs through your own iCloud between iPhone, iPad, Mac and Apple Watch
+• Deleted the app by accident? Reinstall and everything is back
+• Weekly encrypted backup in iCloud Drive, plus a password-protected backup that also works without iCloud
+• Export to a print-ready PDF with QR codes, CSV or Markdown
+• Lock the app with Face ID, Touch ID or your passcode
+• A copied code is removed from the clipboard after 60 seconds
+
+Completely free: no subscription, no in-app purchases, no ads, no account and no tracking.
+
+The app is available in English, Dutch, German, French, Spanish, Italian, Swedish, Norwegian, Danish and Polish.
+
+Pairr is made by Léon van der Linden. More apps: lrvdlinden.app

@@ -2,9 +2,12 @@ import SwiftUI
 import SwiftData
 
 enum Links {
-    static let privacy = URL(string: "https://lrvdlinden.app/pairr/privacy")!
-    /// Support/contact. Replace with the real support page when it exists.
-    static let support = URL(string: "https://lrvdlinden.app")!
+    /// Website of Pairr: Dutch at /, English at /en/.
+    private static var base: String {
+        Locale.current.language.languageCode?.identifier == "nl" ? "https://pairr.lrvdlinden.app" : "https://pairr.lrvdlinden.app/en"
+    }
+    static var privacy: URL { URL(string: base + "/privacy/")! }
+    static var support: URL { URL(string: base + "/support/")! }
 }
 
 struct SettingsView: View {

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pairr beheer</title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://vbhkewgyujzgbukkbtml.supabase.co; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<style>
+@font-face { font-family: "Jakarta"; src: url("/assets/fonts/plus-jakarta-sans-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("/assets/fonts/inter-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("/assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("/assets/fonts/inter-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+:root {
+  --paper: #F4F8FC; --card: #FFFFFF; --ink: #0A1A2C; --muted: #5B6B7D; --line: #DCE5EE;
+  --blue: #0A7FC0; --blue-soft: #E1F2FB; --bad: #C0262D; --warn: #B4530D;
+  --iphone: #0A8FD6; --ipad: #14A884; --mac: #7B61FF; --other: #8A97A6;
+  --display: "Jakarta", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #071321; --card: #0F2438; --ink: #EEF4FA; --muted: #8FA2B6; --line: #22354B;
+    --blue: #38C8FF; --blue-soft: #0F3350; --bad: #FF7A80; --warn: #F2A15E;
+    --iphone: #38C8FF; --ipad: #2ED3A3; --mac: #A08CFF; --other: #7C8B9C;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--paper); color: var(--ink); font: 15px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 20px 16px 48px; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 20px; }
+header .actions { display: flex; gap: 8px; }
+@media (max-width: 520px) { header .spacer { display: none; } header .actions { width: 100%; } header .actions button { flex: 1; justify-content: center; } }
+header img { width: 40px; height: 40px; border-radius: 9px; }
+header h1 { font: 800 22px/1.1 var(--display); margin: 0; letter-spacing: -.01em; }
+header p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+header .spacer { flex: 1; }
+button, .btn { font: 600 14px var(--body); border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 8px 14px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+button.primary { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+button:disabled { opacity: .55; cursor: default; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+.login { max-width: 380px; margin: 8vh auto 0; text-align: center; }
+.login img { width: 84px; height: 84px; border-radius: 19px; }
+.login h1 { font: 800 24px var(--display); margin: 16px 0 4px; }
+.login p.sub { color: var(--muted); margin: 0 0 20px; font-size: 14px; }
+.login form { display: grid; gap: 10px; text-align: left; }
+input { font: 15px var(--body); padding: 11px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); width: 100%; }
+input:focus { outline: 2px solid var(--blue); outline-offset: 0; }
+.login .hint { color: var(--muted); font-size: 12.5px; margin-top: 14px; }
+.err { color: var(--bad); font-size: 13.5px; min-height: 1.2em; margin: 0; }
+.note { font-size: 13.5px; color: var(--muted); margin-bottom: 16px; }
+.note.warn { color: var(--warn); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.tile .label { font-weight: 600; font-size: 13.5px; display: flex; align-items: center; gap: 6px; }
+.tile .label i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.tile .num { font: 800 30px/1.15 var(--display); font-variant-numeric: tabular-nums; margin-top: 4px; }
+.tile .small { color: var(--muted); font-size: 12px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+@media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+h2 { font: 800 17px var(--display); margin: 0 0 10px; }
+.row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.row:first-of-type { border-top: 0; }
+.row span:last-child { font-variant-numeric: tabular-nums; font-weight: 600; }
+.row small { display: block; color: var(--muted); font-size: 12px; font-weight: 400; }
+.foot { color: var(--muted); font-size: 12.5px; margin-top: 10px; }
+.chart-head { display: flex; justify-content: space-between; align-items: baseline; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-right: 5px; vertical-align: -1px; }
+svg.chart { width: 100%; height: 220px; display: block; }
+svg.chart text { fill: var(--muted); font: 11px var(--body); }
+svg.chart .grid { stroke: var(--line); }
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--paper); font-size: 12px; padding: 6px 8px; border-radius: 8px; white-space: nowrap; opacity: 0; transition: opacity .1s; z-index: 5; }
+.updated { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 18px; }
+.fb-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.fb-head h2 { margin: 0; }
+.fb-head a { margin-left: auto; font-size: 13.5px; color: var(--blue); }
+.badge { background: var(--blue); color: #fff; border-radius: 10px; padding: 1px 8px; font-size: 12px; font-weight: 700; }
+.issue { display: block; border-top: 1px solid var(--line); padding: 10px 0; color: var(--ink); text-decoration: none; }
+.issue:first-of-type { border-top: 0; }
+.issue b { font-size: 14px; font-weight: 600; }
+.issue .meta { color: var(--muted); font-size: 12.5px; margin-top: 2px; display: flex; gap: 8px; flex-wrap: wrap; }
+.issue .lbl { background: var(--blue-soft); color: var(--blue); border-radius: 6px; padding: 0 6px; font-weight: 600; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <section id="login" class="login" hidden>
+    <img src="/assets/img/icon-192.png" alt="">
+    <h1>Pairr beheer</h1>
+    <p class="sub">Downloads op iPhone, iPad en Mac, en meldingen</p>
+    <form id="loginForm" class="card" autocomplete="on">
+      <input id="user" name="username" placeholder="Gebruikersnaam" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+      <input id="pass" name="password" type="password" placeholder="Wachtwoord" autocomplete="current-password" required>
+      <p class="err" id="loginErr" role="alert"></p>
+      <button class="primary" id="loginBtn" type="submit">Inloggen</button>
+    </form>
+    <p class="hint">De gedeelde beheer-inlog, dezelfde als in LRbeheer. Je sessie geldt 12 uur en blijft alleen in dit tabblad.</p>
+  </section>
+
+  <section id="app" hidden>
+    <header>
+      <img src="/assets/img/icon-128.png" alt="">
+      <div>
+        <h1>Pairr beheer</h1>
+        <p>Downloads en meldingen</p>
+      </div>
+      <div class="spacer"></div>
+      <div class="actions">
+        <button id="refresh" type="button">Vernieuwen</button>
+        <button id="logout" type="button">Uitloggen</button>
+      </div>
+    </header>
+
+    <p class="err" id="appErr" role="alert"></p>
+    <p class="note warn" id="ascNote" hidden>App Store Connect is nog niet gekoppeld. Zet <code>APPSTORE_CONNECT_P8</code> en <code>VENDOR_APPSTORE_CONNECT</code> in app.lrvdlinden.secrets en start <em>LRbeheer push</em>.</p>
+
+    <div class="tiles">
+      <div class="card tile"><div class="label" style="color:var(--blue)">Totaal</div><div class="num" id="tTotal">–</div><div class="small">Eerste downloads</div></div>
+      <div class="card tile"><div class="label"><i style="background:var(--iphone)"></i>iPhone</div><div class="num" id="tIphone">–</div></div>
+      <div class="card tile"><div class="label"><i style="background:var(--ipad)"></i>iPad</div><div class="num" id="tIpad">–</div></div>
+      <div class="card tile"><div class="label"><i style="background:var(--mac)"></i>Mac</div><div class="num" id="tMac">–</div></div>
+      <div class="card tile"><div class="label">Meldingen</div><div class="num" id="tIssues">–</div><div class="small">Open op GitHub</div></div>
+    </div>
+
+    <div class="card">
+      <div class="chart-head"><h2>Downloads per dag</h2><span class="foot" style="margin:0">30 dagen</span></div>
+      <svg class="chart" id="chart" role="img" aria-label="Downloads per dag"></svg>
+      <div class="legend">
+        <span><i style="background:var(--iphone)"></i>iPhone</span>
+        <span><i style="background:var(--ipad)"></i>iPad</span>
+        <span><i style="background:var(--mac)"></i>Mac</span>
+        <span><i style="background:var(--other)"></i>Overig</span>
+      </div>
+      <p class="foot" id="chartEmpty" hidden>Nog geen downloads in de afgelopen 30 dagen. Apple komt een dag later binnen.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>Apple</h2>
+        <div id="appleRows"></div>
+        <p class="foot">Uit de dagelijkse verkoopoverzichten van App Store Connect; die komen een dag later binnen. De Watch-app zit in de iPhone-download.</p>
+      </div>
+      <div class="card">
+        <div class="fb-head"><h2>Meldingen</h2><span class="badge" id="issueCount" hidden></span><a id="issuesLink" href="https://github.com/LRvdLinden/app.lrvdlinden.pairr/issues" target="_blank" rel="noopener noreferrer">Alle op GitHub</a></div>
+        <div id="issueList"></div>
+        <p class="foot">Problemen en ideeën van gebruikers, via de supportpagina (GitHub Issues).</p>
+      </div>
+    </div>
+    <p class="updated" id="updated"></p>
+  </section>
+</main>
+<div class="tip" id="tip"></div>
+
+<script>
+(() => {
+  "use strict";
+  const API = "https://vbhkewgyujzgbukkbtml.supabase.co/functions/v1/lrbeheer";
+  const KEY = "pairr.beheer.session";
+  const $ = (id) => document.getElementById(id);
+  const nf = new Intl.NumberFormat("nl-NL");
+  const dShort = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "short" });
+  const dLong = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "long", year: "numeric" });
+  const dTime = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+
+  const store = {
+    get() { try { const s = JSON.parse(sessionStorage.getItem(KEY) || "null"); return s && s.expires * 1000 > Date.now() + 60000 ? s : null; } catch { return null; } },
+    set(v) { try { sessionStorage.setItem(KEY, JSON.stringify(v)); } catch { /* alleen in geheugen */ } mem = v; },
+    clear() { try { sessionStorage.removeItem(KEY); } catch { /* leeg */ } mem = null; },
+  };
+  let mem = store.get();
+
+  async function call(body, token) {
+    const headers = { "Content-Type": "application/json" };
+    if (token) headers.Authorization = "Bearer " + token;
+    let r;
+    try { r = await fetch(API, { method: "POST", headers, body: JSON.stringify(body), cache: "no-store", credentials: "omit" }); }
+    catch { throw new Error("Geen verbinding met de server."); }
+    if (r.status === 401) { const e = new Error(body.action === "pairr_login" ? "Onjuiste gebruikersnaam of wachtwoord." : "Je sessie is verlopen. Log opnieuw in."); e.auth = true; throw e; }
+    if (r.status === 503) throw new Error("Het Pairr-beheer is nog niet ingesteld op de server.");
+    if (!r.ok) throw new Error("De server gaf HTTP " + r.status + ".");
+    return r.json();
+  }
+
+  function show(signedIn) {
+    $("login").hidden = signedIn;
+    $("app").hidden = !signedIn;
+    if (!signedIn) setTimeout(() => $("user").focus(), 0);
+  }
+
+  $("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = $("loginBtn");
+    btn.disabled = true; btn.textContent = "Bezig…"; $("loginErr").textContent = "";
+    try {
+      const r = await call({ action: "pairr_login", user: $("user").value.trim(), password: $("pass").value });
+      store.set({ token: r.token, expires: r.expires });
+      $("pass").value = "";
+      show(true);
+      load();
+    } catch (err) {
+      $("loginErr").textContent = err.message;
+    } finally {
+      btn.disabled = false; btn.textContent = "Inloggen";
+    }
+  });
+
+  $("logout").addEventListener("click", () => { store.clear(); show(false); });
+  $("refresh").addEventListener("click", () => load());
+
+  let busy = false;
+  async function load() {
+    if (!mem || busy) return;
+    busy = true; $("refresh").disabled = true; $("refresh").textContent = "Bezig…";
+    try {
+      const s = await call({ action: "pairr_stats" }, mem.token);
+      render(s);
+      $("appErr").textContent = "";
+    } catch (err) {
+      if (err.auth) { store.clear(); show(false); $("loginErr").textContent = err.message; }
+      else $("appErr").textContent = err.message;
+    } finally {
+      busy = false; $("refresh").disabled = false; $("refresh").textContent = "Vernieuwen";
+    }
+  }
+
+  const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; };
+  function row(label, value, sub) {
+    const r = el("div", "row");
+    const l = el("span", "", label);
+    if (sub) l.appendChild(el("small", "", sub));
+    r.append(l, el("span", "", value));
+    return r;
+  }
+  const parseDay = (d) => { const [y, m, dd] = d.split("-").map(Number); return new Date(y, m - 1, dd); };
+
+  function render(s) {
+    const dev = (n) => (s.apple.by_device && s.apple.by_device[n]) || 0;
+    const t = s.apple.totals || {};
+    $("ascNote").hidden = !!s.apple.configured;
+    $("tTotal").textContent = nf.format(t.download || 0);
+    $("tIphone").textContent = nf.format(dev("iPhone"));
+    $("tIpad").textContent = nf.format(dev("iPad"));
+    $("tMac").textContent = nf.format(dev("Mac"));
+
+    const apple = $("appleRows"); apple.replaceChildren();
+    apple.append(row("Eerste downloads", nf.format(t.download || 0)), row("Opnieuw gedownload", nf.format(t.redownload || 0)), row("Updates", nf.format(t.update || 0)));
+    const other = Object.entries(s.apple.by_device || {}).filter(([k]) => !["iPhone", "iPad", "Mac"].includes(k)).reduce((a, [, v]) => a + v, 0);
+    if (other) apple.append(row("Andere apparaten", nf.format(other)));
+    if (s.apple.last_day) apple.append(row("Laatste dag van App Store Connect", dLong.format(parseDay(s.apple.last_day))));
+
+    const iss = s.issues || { available: false, items: [], open: 0 };
+    $("tIssues").textContent = iss.available ? nf.format(iss.open || 0) : "–";
+    const cnt = $("issueCount"); cnt.hidden = !iss.open; cnt.textContent = iss.open + " open";
+    if (iss.url) $("issuesLink").href = iss.url;
+    const list = $("issueList"); list.replaceChildren();
+    if (!iss.available) list.append(el("p", "note warn", "GitHub was niet bereikbaar; probeer het zo opnieuw."));
+    else if (!(iss.items || []).length) list.append(el("p", "foot", "Geen open meldingen."));
+    for (const it of iss.items || []) {
+      const a = el(it.url ? "a" : "div", "issue");
+      if (it.url) { a.href = it.url; a.target = "_blank"; a.rel = "noopener noreferrer"; }
+      a.append(el("b", "", "#" + it.number + " " + it.title));
+      const meta = el("div", "meta");
+      if (it.created_at) meta.append(el("span", "", dTime.format(new Date(it.created_at))));
+      if (it.comments) meta.append(el("span", "", it.comments + (it.comments === 1 ? " reactie" : " reacties")));
+      for (const l of it.labels || []) meta.append(el("span", "lbl", l));
+      a.append(meta);
+      list.append(a);
+    }
+
+    lastDays = s.days || [];
+    drawChart(lastDays);
+    $("updated").textContent = s.synced_at ? "Bijgewerkt " + dTime.format(new Date(s.synced_at)) : "";
+  }
+
+  let lastDays = null;
+  const SERIES = [["iPhone", "--iphone"], ["iPad", "--ipad"], ["Mac", "--mac"], ["other", "--other", "Overig"]];
+  function drawChart(days) {
+    const svg = $("chart");
+    const NS = "http://www.w3.org/2000/svg";
+    svg.replaceChildren();
+    const total = days.reduce((a, d) => a + SERIES.reduce((b, [k]) => b + (d[k] || 0), 0), 0);
+    $("chartEmpty").hidden = total > 0;
+    svg.style.display = total > 0 ? "" : "none";
+    if (!total) return;
+    const W = Math.max(320, svg.clientWidth || 600), H = 220, L = 34, R = 6, T = 8, B = 24;
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    const max = Math.max(1, ...days.map((d) => SERIES.reduce((b, [k]) => b + (d[k] || 0), 0)));
+    const step = niceStep(max);
+    const top = Math.ceil(max / step) * step;
+    const y = (v) => T + (H - T - B) * (1 - v / top);
+    for (let v = 0; v <= top; v += step) {
+      const ln = document.createElementNS(NS, "line");
+      ln.setAttribute("x1", L); ln.setAttribute("x2", W - R); ln.setAttribute("y1", y(v)); ln.setAttribute("y2", y(v)); ln.setAttribute("class", "grid");
+      const tx = document.createElementNS(NS, "text");
+      tx.setAttribute("x", L - 6); tx.setAttribute("y", y(v) + 4); tx.setAttribute("text-anchor", "end"); tx.textContent = nf.format(v);
+      svg.append(ln, tx);
+    }
+    const slot = (W - L - R) / days.length, bw = Math.max(3, Math.min(22, slot * 0.7));
+    const css = getComputedStyle(document.documentElement);
+    days.forEach((d, i) => {
+      const x = L + slot * i + (slot - bw) / 2;
+      let acc = 0;
+      const g = document.createElementNS(NS, "g");
+      for (const [k, varName] of SERIES) {
+        const v = d[k] || 0;
+        if (!v) continue;
+        const rect = document.createElementNS(NS, "rect");
+        rect.setAttribute("x", x); rect.setAttribute("width", bw);
+        rect.setAttribute("y", y(acc + v)); rect.setAttribute("height", Math.max(0, y(acc) - y(acc + v)));
+        rect.setAttribute("rx", 2); rect.setAttribute("fill", css.getPropertyValue(varName).trim());
+        g.append(rect);
+        acc += v;
+      }
+      const hit = document.createElementNS(NS, "rect");
+      hit.setAttribute("x", L + slot * i); hit.setAttribute("width", slot); hit.setAttribute("y", T); hit.setAttribute("height", H - T - B); hit.setAttribute("fill", "transparent");
+      hit.addEventListener("pointerenter", (e) => tip(e, d));
+      hit.addEventListener("pointermove", (e) => tip(e, d));
+      hit.addEventListener("pointerleave", () => { $("tip").style.opacity = 0; });
+      g.append(hit);
+      svg.append(g);
+      if ((days.length - 1 - i) % 7 === 0) {
+        const tx = document.createElementNS(NS, "text");
+        tx.setAttribute("x", L + slot * i + slot / 2); tx.setAttribute("y", H - 6); tx.setAttribute("text-anchor", "middle");
+        tx.textContent = dShort.format(parseDay(d.day));
+        svg.append(tx);
+      }
+    });
+  }
+  function niceStep(max) {
+    const raw = max / 4, p = Math.pow(10, Math.floor(Math.log10(raw)));
+    const n = raw / p;
+    return Math.max(1, (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p);
+  }
+  function tip(e, d) {
+    const t = $("tip");
+    const parts = SERIES.filter(([k]) => d[k]).map(([k, , label]) => (label || k) + " " + nf.format(d[k]));
+    t.textContent = dShort.format(parseDay(d.day)) + ": " + (parts.length ? parts.join(" · ") : "geen");
+    t.style.opacity = 1;
+    const x = Math.min(window.innerWidth - t.offsetWidth - 8, e.clientX + 12);
+    t.style.left = Math.max(8, x) + "px"; t.style.top = (e.clientY - 36) + "px";
+  }
+  addEventListener("resize", () => { if (lastDays) drawChart(lastDays); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => { if (lastDays) drawChart(lastDays); });
+
+  show(!!mem);
+  if (mem) load();
+})();
+</script>
+</body>
+</html>

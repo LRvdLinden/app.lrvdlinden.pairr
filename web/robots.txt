@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /beheer/
+
+Sitemap: https://pairr.lrvdlinden.app/sitemap.xml
