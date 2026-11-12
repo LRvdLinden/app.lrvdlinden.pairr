@@ -29,7 +29,7 @@ h1 .grad{{background:linear-gradient(100deg,#38C8FF 10%,#2ED3A3 90%);-webkit-bac
 </style></head><body><div class="og"><div>
 <div class="brand"><img src="/assets/img/icon-192.png" alt="">Pairr</div>
 <h1>Never lose a <span class="grad">setup code</span> again.</h1>
-<p class="sub">All your smart home codes, safe in one place.<br>Free · encrypted in your iCloud.</p>
+<p class="sub">All your smart home codes, safe in one place.<br>One-time purchase · encrypted in iCloud.</p>
 <div class="chips">{chips}</div>
 </div>{B.phone(p)}</div></body></html>"""
 out = B.OUT / "og" / "_og.html"

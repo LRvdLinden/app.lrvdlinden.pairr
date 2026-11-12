@@ -233,7 +233,7 @@ def footer(p: Page) -> str:
   <div class="wrap">
     <a class="more-apps" href="https://lrvdlinden.app" rel="noopener">
       <img class="lr" src="/assets/img/lr-logo.png" alt="" width="56" height="56">
-      <span><b>{p.t("Meer apps van de ontwikkelaar", "More apps by the developer")}</b><span>{p.t("Gratis apps van Léon van der Linden", "Free apps by Léon van der Linden")}</span></span>
+      <span><b>{p.t("Meer apps van de ontwikkelaar", "More apps by the developer")}</b><span>{p.t("Apps van Léon van der Linden", "Apps by Léon van der Linden")}</span></span>
       <em>{p.t("Bekijk", "View")}</em>
     </a>
     <div class="foot">
@@ -295,9 +295,9 @@ def phone(p: Page) -> str:
 def home(p: Page) -> str:
     T = p.t
     faqs = [
-        (T("Is Pairr echt gratis?", "Is Pairr really free?"),
-         T("Ja. Geen abonnement, geen in-app-aankopen, geen reclame en geen account. Alle functies zitten er gewoon in.",
-           "Yes. No subscription, no in-app purchases, no ads and no account. Every feature is simply included.")),
+        (T("Wat kost Pairr?", "How much does Pairr cost?"),
+         T("Eenmalig € 0,99. Daarna geen abonnement, geen in-app-aankopen, geen reclame en geen account. Alle functies zitten erin, en je betaalt één keer voor iPhone, iPad, Mac en Apple Watch samen.",
+           "A one-time € 0.99 (or the equivalent price in your country's App Store). After that: no subscription, no in-app purchases, no ads and no account. Every feature is included, and one purchase covers iPhone, iPad, Mac and Apple Watch.")),
         (T("Wat gebeurt er als ik de app verwijder?", "What happens if I delete the app?"),
          T("Niets gaat verloren. Je apparaten en codes staan in je eigen iCloud en de sleutel van je kluis in de iCloud-sleutelhanger. Installeer je Pairr opnieuw, dan komt alles vanzelf terug. Daarnaast maakt Pairr elke week een versleutelde back-up in iCloud Drive.",
            "Nothing is lost. Your devices and codes live in your own iCloud and the key to your vault in iCloud Keychain. Reinstall Pairr and everything comes back by itself. Pairr also makes an encrypted backup in iCloud Drive every week.")),
@@ -323,23 +323,23 @@ def home(p: Page) -> str:
 
     title = T("HomeKit-, Matter- en Zigbee-codes bewaren | Pairr",
               "Store HomeKit, Matter and Zigbee codes | Pairr")
-    desc = T("Gratis app voor al je koppelcodes: HomeKit, Matter, Zigbee, Hue en Z-Wave. Scannen, automatisch invullen en versleuteld in iCloud. iPhone, iPad, Mac en Watch.",
-             "Free app for all your setup codes: HomeKit, Matter, Zigbee, Hue and Z-Wave. Scan, auto-fill and keep them encrypted in iCloud. iPhone, iPad, Mac and Watch.")
+    desc = T("App voor al je koppelcodes: HomeKit, Matter, Zigbee, Hue en Z-Wave. Scannen, automatisch invullen, versleuteld in iCloud. Eenmalig € 0,99, geen abonnement.",
+             "App for all your setup codes: HomeKit, Matter, Zigbee, Hue and Z-Wave. Scan, auto-fill, encrypted in iCloud. One-time purchase, no subscription.")
     og_title = T("Pairr: nooit meer een koppelcode kwijt", "Pairr: never lose a setup code again")
-    og_desc = T("Al je HomeKit-, Matter-, Zigbee- en Hue-codes veilig op één plek. Gratis, zonder account.",
-                "All your HomeKit, Matter, Zigbee and Hue codes safely in one place. Free, no account.")
+    og_desc = T("Al je HomeKit-, Matter-, Zigbee- en Hue-codes veilig op één plek. Eenmalig € 0,99, zonder account.",
+                "All your HomeKit, Matter, Zigbee and Hue codes safely in one place. One-time purchase, no account.")
     og_alt = T("Pairr op een iPhone en Apple Watch: een lijst met slimme apparaten en een Matter-QR-code",
                "Pairr on an iPhone and Apple Watch: a list of smart devices and a Matter QR code")
-    keywords = T("homekit code bewaren, matter code bewaren, koppelcode kwijt, homekit code kwijt, zigbee install code, philips hue serienummer, z-wave dsk, smart home codes app, gratis",
-                 "save homekit codes, store matter setup code, lost homekit code, zigbee install code, philips hue serial number, z-wave dsk, smart home code vault, free")
+    keywords = T("homekit code bewaren, matter code bewaren, koppelcode kwijt, homekit code kwijt, zigbee install code, philips hue serienummer, z-wave dsk, smart home codes app",
+                 "save homekit codes, store matter setup code, lost homekit code, zigbee install code, philips hue serial number, z-wave dsk, smart home code vault")
 
     ld = [
         {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Pairr",
          "applicationCategory": "UtilitiesApplication", "operatingSystem": "iOS 17, iPadOS 17, macOS 14, watchOS 10",
          "inLanguage": ["nl", "en", "de", "fr", "es", "it", "sv", "nb", "da", "pl"],
          "description": desc, "url": DOMAIN + p.url("/"), "image": f"{DOMAIN}/assets/img/icon-512.png",
-         "softwareVersion": VERSION, "isAccessibleForFree": True,
-         "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
+         "softwareVersion": VERSION, "isAccessibleForFree": False,
+         "offers": {"@type": "Offer", "price": "0.99", "priceCurrency": "EUR"},
          "author": {"@type": "Person", "name": "Léon van der Linden", "url": "https://lrvdlinden.app"},
          **({"downloadUrl": APP_STORE_URL} if APP_STORE_URL else {})},
         {"@context": "https://schema.org", "@type": "WebSite", "name": "Pairr", "url": DOMAIN + p.url("/"), "inLanguage": p.lang,
@@ -413,7 +413,6 @@ def home(p: Page) -> str:
         (T("Versleuteld met een eigen sleutel", "Encrypted with its own key"), Y, N, part(T("Vergrendelde notitie", "Locked note"))),
         (T("Op slot met Face ID", "Locked with Face ID"), Y, part(T("Verborgen album", "Hidden album")), part(T("Vergrendelde notitie", "Locked note"))),
         (T("Synchroniseert via iCloud", "Syncs via iCloud"), Y, Y, Y),
-        (T("Gratis", "Free"), Y, Y, Y),
     ]
     cmp_html = "".join(f'<tr><td>{esc(r)}</td><td class="us">{a}</td><td>{b}</td><td>{c}</td></tr>' for r, a, b, c in cmp_rows)
 
@@ -434,7 +433,7 @@ def home(p: Page) -> str:
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="eyebrow"><span class="dot"></span>{T("Gratis · geen account · geen reclame", "Free · no account · no ads")}</span>
+      <span class="eyebrow"><span class="dot"></span>{T("€ 0,99 eenmalig · geen abonnement · geen reclame", "One-time purchase · no subscription · no ads")}</span>
       <h1>{T('Nooit meer een <span class="grad">koppelcode</span> kwijt.', 'Never lose a <span class="grad">setup code</span> again.')}</h1>
       <p class="lead">{T("Pairr bewaart de codes van al je slimme apparaten veilig op één plek. Scan de sticker, Pairr herkent de code, vult merk en model in en toont hem later weer als QR. Versleuteld in je eigen iCloud.",
                          "Pairr keeps the codes of all your smart devices safe in one place. Scan the sticker, Pairr recognises the code, fills in brand and model and shows it again as a QR later. Encrypted in your own iCloud.")}</p>
@@ -491,7 +490,7 @@ def home(p: Page) -> str:
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="kicker">{T("Alles erin", "Everything included")}</span>
-      <h2>{T("Maximaal handig. En gewoon gratis.", "As handy as it gets. And simply free.")}</h2>
+      <h2>{T("Maximaal handig. Eén keer betalen.", "As handy as it gets. Pay once.")}</h2>
     </div>
     <div class="features">
       <article class="feat wide reveal">
@@ -561,7 +560,7 @@ def home(p: Page) -> str:
   <div class="wrap">
     <img class="icon reveal" src="/assets/img/icon-512.png" alt="{T("App-icoon van Pairr", "Pairr app icon")}" width="108" height="108" loading="lazy">
     <h2 class="reveal">{T("Al je codes. Eén plek.", "All your codes. One place.")}</h2>
-    <p class="lead reveal" style="margin:0 auto">{T("Gratis voor iPhone, iPad, Mac en Apple Watch.", "Free for iPhone, iPad, Mac and Apple Watch.")}</p>
+    <p class="lead reveal" style="margin:0 auto">{T("Eenmalig € 0,99 voor iPhone, iPad, Mac en Apple Watch samen.", "One purchase for iPhone, iPad, Mac and Apple Watch together.")}</p>
     <div class="cta reveal">{store_badge(p)}</div>
   </div>
 </section>
