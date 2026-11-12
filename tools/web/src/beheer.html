@@ -17,7 +17,7 @@
 :root {
   --paper: #F4F8FC; --card: #FFFFFF; --ink: #0A1A2C; --muted: #5B6B7D; --line: #DCE5EE;
   --blue: #0A7FC0; --blue-soft: #E1F2FB; --bad: #C0262D; --warn: #B4530D;
-  --iphone: #0A8FD6; --ipad: #14A884; --mac: #7B61FF; --other: #8A97A6;
+  --iphone: #0A8FD6; --ipad: #14A884; --mac: #7B61FF; --other: #8A97A6; --rev: #0E9F6E;
   --display: "Jakarta", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color-scheme: light;
@@ -26,7 +26,7 @@
   :root:not([data-theme="light"]) {
     --paper: #071321; --card: #0F2438; --ink: #EEF4FA; --muted: #8FA2B6; --line: #22354B;
     --blue: #38C8FF; --blue-soft: #0F3350; --bad: #FF7A80; --warn: #F2A15E;
-    --iphone: #38C8FF; --ipad: #2ED3A3; --mac: #A08CFF; --other: #7C8B9C;
+    --iphone: #38C8FF; --ipad: #2ED3A3; --mac: #A08CFF; --other: #7C8B9C; --rev: #34D399;
     color-scheme: dark;
   }
 }
@@ -56,7 +56,7 @@ input:focus { outline: 2px solid var(--blue); outline-offset: 0; }
 .err { color: var(--bad); font-size: 13.5px; min-height: 1.2em; margin: 0; }
 .note { font-size: 13.5px; color: var(--muted); margin-bottom: 16px; }
 .note.warn { color: var(--warn); }
-.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .tile .label { font-weight: 600; font-size: 13.5px; display: flex; align-items: center; gap: 6px; }
 .tile .label i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
 .tile .num { font: 800 30px/1.15 var(--display); font-variant-numeric: tabular-nums; margin-top: 4px; }
@@ -95,7 +95,7 @@ svg.chart .grid { stroke: var(--line); }
   <section id="login" class="login" hidden>
     <img src="/assets/img/icon-192.png" alt="">
     <h1>Pairr beheer</h1>
-    <p class="sub">Downloads op iPhone, iPad en Mac, en meldingen</p>
+    <p class="sub">Downloads, omzet en meldingen</p>
     <form id="loginForm" class="card" autocomplete="on">
       <input id="user" name="username" placeholder="Gebruikersnaam" autocomplete="username" autocapitalize="none" spellcheck="false" required>
       <input id="pass" name="password" type="password" placeholder="Wachtwoord" autocomplete="current-password" required>
@@ -110,7 +110,7 @@ svg.chart .grid { stroke: var(--line); }
       <img src="/assets/img/icon-128.png" alt="">
       <div>
         <h1>Pairr beheer</h1>
-        <p>Downloads en meldingen</p>
+        <p>Downloads, omzet en meldingen</p>
       </div>
       <div class="spacer"></div>
       <div class="actions">
@@ -127,6 +127,7 @@ svg.chart .grid { stroke: var(--line); }
       <div class="card tile"><div class="label"><i style="background:var(--iphone)"></i>iPhone</div><div class="num" id="tIphone">–</div></div>
       <div class="card tile"><div class="label"><i style="background:var(--ipad)"></i>iPad</div><div class="num" id="tIpad">–</div></div>
       <div class="card tile"><div class="label"><i style="background:var(--mac)"></i>Mac</div><div class="num" id="tMac">–</div></div>
+      <div class="card tile"><div class="label" style="color:var(--rev)">Omzet</div><div class="num" id="tRevenue">–</div><div class="small" id="tRevenueSub">Opbrengst, na Apple</div></div>
       <div class="card tile"><div class="label">Meldingen</div><div class="num" id="tIssues">–</div><div class="small">Open op GitHub</div></div>
     </div>
 
@@ -140,6 +141,14 @@ svg.chart .grid { stroke: var(--line); }
         <span><i style="background:var(--other)"></i>Overig</span>
       </div>
       <p class="foot" id="chartEmpty" hidden>Nog geen downloads in de afgelopen 30 dagen. Apple komt een dag later binnen.</p>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="chart-head"><h2>Omzet per dag</h2><span class="foot" style="margin:0">30 dagen, in euro</span></div>
+      <svg class="chart" id="revChart" role="img" aria-label="Omzet per dag"></svg>
+      <p class="foot" id="revEmpty" hidden>Nog geen verkopen in de afgelopen 30 dagen.</p>
+      <div id="revRows" style="margin-top:8px"></div>
+      <p class="foot">Opbrengst na Apple (Units × Developer Proceeds) uit de dagelijkse verkoopoverzichten, terugbetalingen eraf. Andere valuta omgerekend met de ECB-koers van de dag van ophalen; Apple betaalt later definitief uit in euro, dus het bedrag kan iets afwijken.</p>
     </div>
 
     <div class="grid2">
@@ -275,12 +284,71 @@ svg.chart .grid { stroke: var(--line); }
       list.append(a);
     }
 
+    const rv = s.revenue || null;
+    $("tRevenue").textContent = rv ? eurf.format(rv.total_eur || 0) : "–";
+    $("tRevenueSub").textContent = rv ? "Deze maand " + eurf.format(rv.month_eur || 0) : "Opbrengst, na Apple";
+    const rr = $("revRows"); rr.replaceChildren();
+    if (rv) {
+      rr.append(row("Totaal (opbrengst)", eurf.format(rv.total_eur || 0)), row("Deze maand", eurf.format(rv.month_eur || 0)), row("Verkochte exemplaren", nf.format(rv.units || 0)));
+      for (const [cur, v] of Object.entries(rv.by_currency || {}).sort((a, b) => b[1].proceeds - a[1].proceeds)) {
+        if (cur === "EUR" && Object.keys(rv.by_currency).length === 1) break;
+        rr.append(row(cur, new Intl.NumberFormat("nl-NL", { style: "currency", currency: cur }).format(v.proceeds), nf.format(v.units) + " verkocht"));
+      }
+      if (rv.unconverted) rr.append(el("p", "note warn", rv.unconverted + " dag(en) in een valuta zonder ECB-koers; niet meegeteld in euro."));
+      if (rv.last_day) rr.append(row("Laatste dag van App Store Connect", dLong.format(parseDay(rv.last_day))));
+    }
+    lastRev = rv ? rv.days || [] : [];
+    drawRevenue(lastRev);
+
     lastDays = s.days || [];
     drawChart(lastDays);
     $("updated").textContent = s.synced_at ? "Bijgewerkt " + dTime.format(new Date(s.synced_at)) : "";
   }
 
-  let lastDays = null;
+  let lastDays = null, lastRev = [];
+  const eurf = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" });
+  function drawRevenue(days) {
+    const svg = $("revChart"), NS = "http://www.w3.org/2000/svg";
+    svg.replaceChildren();
+    const has = days.some((d) => d.eur);
+    $("revEmpty").hidden = has; svg.style.display = has ? "" : "none";
+    if (!has) return;
+    const W = Math.max(320, svg.clientWidth || 600), H = 220, L = 46, R = 6, T = 8, B = 24;
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    const max = Math.max(0.01, ...days.map((d) => d.eur)), min = Math.min(0, ...days.map((d) => d.eur));
+    const step = niceStep(max - min), top = Math.ceil(max / step) * step, bot = Math.floor(min / step) * step;
+    const y = (v) => T + (H - T - B) * (1 - (v - bot) / (top - bot || 1));
+    for (let v = bot; v <= top + 1e-9; v += step) {
+      const ln = document.createElementNS(NS, "line");
+      ln.setAttribute("x1", L); ln.setAttribute("x2", W - R); ln.setAttribute("y1", y(v)); ln.setAttribute("y2", y(v)); ln.setAttribute("class", "grid");
+      const tx = document.createElementNS(NS, "text");
+      tx.setAttribute("x", L - 6); tx.setAttribute("y", y(v) + 4); tx.setAttribute("text-anchor", "end"); tx.textContent = "€" + nf.format(Math.round(v * 100) / 100);
+      svg.append(ln, tx);
+    }
+    const slot = (W - L - R) / days.length, bw = Math.max(3, Math.min(22, slot * 0.7));
+    const color = getComputedStyle(document.documentElement).getPropertyValue("--rev").trim();
+    days.forEach((d, i) => {
+      const x = L + slot * i + (slot - bw) / 2;
+      if (d.eur) {
+        const r = document.createElementNS(NS, "rect");
+        r.setAttribute("x", x); r.setAttribute("width", bw); r.setAttribute("rx", 2); r.setAttribute("fill", color);
+        r.setAttribute("y", Math.min(y(0), y(d.eur))); r.setAttribute("height", Math.abs(y(0) - y(d.eur)));
+        svg.append(r);
+      }
+      const hit = document.createElementNS(NS, "rect");
+      hit.setAttribute("x", L + slot * i); hit.setAttribute("width", slot); hit.setAttribute("y", T); hit.setAttribute("height", H - T - B); hit.setAttribute("fill", "transparent");
+      const show = (e) => { const t = $("tip"); t.textContent = dShort.format(parseDay(d.day)) + ": " + eurf.format(d.eur) + " · " + nf.format(d.units) + " verkocht"; t.style.opacity = 1;
+        t.style.left = Math.max(8, Math.min(window.innerWidth - t.offsetWidth - 8, e.clientX + 12)) + "px"; t.style.top = (e.clientY - 36) + "px"; };
+      hit.addEventListener("pointerenter", show); hit.addEventListener("pointermove", show);
+      hit.addEventListener("pointerleave", () => { $("tip").style.opacity = 0; });
+      svg.append(hit);
+      if ((days.length - 1 - i) % 7 === 0) {
+        const tx = document.createElementNS(NS, "text");
+        tx.setAttribute("x", L + slot * i + slot / 2); tx.setAttribute("y", H - 6); tx.setAttribute("text-anchor", "middle");
+        tx.textContent = dShort.format(parseDay(d.day)); svg.append(tx);
+      }
+    });
+  }
   const SERIES = [["iPhone", "--iphone"], ["iPad", "--ipad"], ["Mac", "--mac"], ["other", "--other", "Overig"]];
   function drawChart(days) {
     const svg = $("chart");
@@ -347,7 +415,7 @@ svg.chart .grid { stroke: var(--line); }
     const x = Math.min(window.innerWidth - t.offsetWidth - 8, e.clientX + 12);
     t.style.left = Math.max(8, x) + "px"; t.style.top = (e.clientY - 36) + "px";
   }
-  addEventListener("resize", () => { if (lastDays) drawChart(lastDays); });
+  addEventListener("resize", () => { if (lastDays) drawChart(lastDays); drawRevenue(lastRev); });
   matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => { if (lastDays) drawChart(lastDays); });
 
   show(!!mem);

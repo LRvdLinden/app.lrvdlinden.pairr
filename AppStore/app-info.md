@@ -2,8 +2,8 @@
 
 ## Algemene informatie
 - **Bundle ID**: `app.lrvdlinden.pairr` (Watch: `app.lrvdlinden.pairr.watchkitapp`)
-- **SKU**: `app.lrvdlinden.pairr`
-- **Apple ID**: TODO (staat in App Store Connect; zet hem ook als `ASC_PAIRR_APPLE_ID` in app.lrvdlinden.secrets voor het beheer, omdat de naam in de store niet precies "Pairr" is)
+- **SKU**: `app.lrvdlinden.pairr` (gebruik precies deze SKU: het beheer herkent Pairr daaraan in de verkoopoverzichten voor downloads en omzet)
+- **Apple ID**: TODO (staat in App Store Connect; optioneel als `ASC_PAIRR_APPLE_ID` voor het beheer)
 - **Versie**: 1.0.0 (build 7)
 - **Primaire taal**: Nederlands (nl-NL)
 - **Talen van de app**: Engels, Nederlands, Duits, Frans, Spaans, Italiaans, Zweeds, Noors (Bokmål), Deens, Pools
